@@ -1,0 +1,301 @@
+/* HTML Elements */
+
+html, body {margin: 0; height: 100%; overflow: hidden}
+
+body
+{
+    padding: 50px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+button
+{
+    background-color: rgb(255, 154, 0);
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 12px 45px;
+    border-radius: 2px;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover
+{
+    background-color: rgb(198, 135, 40);
+}
+
+/* Index */
+
+.index_content a
+{
+    text-decoration: none;
+}
+
+.index_card
+{
+    margin-right: auto;
+    margin-left: auto;
+    padding: 30px; 
+    width: 300px; 
+    height: 300px; 
+    border-radius: 10px; 
+    background-color: #242733; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content : center;
+}
+
+.index_card:hover
+{
+    background-color: #30354b; 
+}
+
+/* Loading */
+
+#loading
+{
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 150px;
+    text-align: center;
+    color: rgb(255, 154, 0);
+    font-weight: 900;
+    width: 500px;
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+
+#loading.fade
+{
+    opacity: 0;
+}
+
+#loading h2
+{
+    margin: 0;
+    margin-top: 30px;
+    font-size: 40px;
+}
+
+#loading h3
+{
+    margin: 0;
+    font-size: 20px;
+}
+
+.loader 
+{
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid rgb(255, 154, 0); /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    margin-left: auto;
+    margin-right: auto;
+}
+  
+@keyframes spin
+{
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#content
+{
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+#content.fade 
+{
+    opacity: 1;
+}
+
+/* Main page elements */
+
+.main_title
+{
+    color: rgb(255, 154, 0);
+    font-weight: 900;
+    margin: 0;
+}
+
+header, #navbar, #field
+{
+    width: 1140px;
+}
+
+header
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+}
+
+header p
+{
+    margin: 0;
+}
+
+#navbar
+{
+    height: 50px;
+    display: flex;
+    justify-content: space-around;
+    background-color: #242733;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+#field
+{
+    height: 540px;
+    background-image: url("images/grass.png");
+    background-repeat: repeat;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    position: relative;
+    overflow: hidden;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+/* Pouleto */
+
+#pouleto
+{
+    width: 100px;
+    height: 100px;
+    background-image: url("images/pouleto_right.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    transition: all 0.2s ease-out;
+    z-index: 3;
+}
+
+/* Wolf */
+
+#wolf
+{
+    width: 100px;
+    height: 100px;
+    background-image: url("images/wolf.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    transition: all 0.2s ease-out;
+    z-index: 5;
+}
+
+/* Seeds */
+
+.seed
+{
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+}
+
+.normal_seed
+{background-image: url("images/seed.png");}
+
+.golden_seed
+{background-image: url("images/golden_seed.png");}
+
+/* Other items */
+
+.bomb
+{
+    background-image: url("images/bomb.gif");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    transition: all 0.2s ease-out;
+    z-index: 3;
+}
+
+#pouletoLivesDiv, #pouletoLivesDisplay
+{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.life 
+{
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+    margin-left: 5px;
+}
+
+.lifeok
+{background-image: url("images/life.svg");}
+
+.lifeempty
+{background-image: url("images/life_empty.svg");}
+
+.newLife
+{
+    background-image: url("images/newLife.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    z-index: 3;
+}
+
+/* Status game blocs */
+
+#intro, #pause, #lost
+{
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    background-color: #242733;
+    opacity: 90%;
+    position: absolute;
+}
+
+#intro
+{
+    color: white;
+    text-align: center;
+}
+
+#pause
+{
+    display: none;
+    padding-top: 190px;
+    color: white;
+    text-align: center;
+    font-weight: 900;
+    font-size: 130px;
+}
+
+#lost
+{
+    display: none;
+    padding-top: 130px;
+    color: rgb(255, 154, 0);
+    font-weight: 900;
+}

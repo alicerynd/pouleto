@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>life copy</title>
+    <desc>Created with Sketch.</desc>
+    <g id="life-copy" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" fill-opacity="0.132133152" stroke-linecap="round" stroke-linejoin="round">
+        <g id="like" transform="translate(3.200000, 5.600000)" fill="#C80000" stroke="#241702" stroke-width="2.68799963">
+            <path d="M17.0971409,5.22890404 C18.4855525,2.1511477 21.6572955,0.000643478223 25.3464247,0.000643478223 C30.3159474,0.000643478223 33.8949944,3.97669542 34.3449554,8.71526905 C34.3449554,8.71526905 34.5878242,9.89154724 34.0532376,12.0092341 C33.3253191,14.8933035 31.6142291,17.4556337 29.3073193,19.4111641 L17.0971409,29.5999982 L5.0926786,19.4105206 C2.7857688,17.4556337 1.07467883,14.89266 0.346760382,12.0085906 C-0.187826231,9.89090376 0.0550425906,8.71462557 0.0550425906,8.71462557 C0.505003524,3.97605194 4.08405058,0 9.05357324,0 C12.7433905,0 15.7087294,2.1511477 17.0971409,5.22890404 Z" id="Path"></path>
+        </g>
+    </g>
+</svg>
