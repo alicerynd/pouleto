@@ -87,8 +87,6 @@ function newSeed(seedType)
     const newSeed = new Seed("seed" + seedId, seedType);
     field.appendChild(newSeed.htmlElement);
     allSeeds.push(newSeed);
-    
-    hitSeed(); //checking if the new seed appeared on pouleto
 
     if (seedType == "normal_seed")
     {
@@ -100,11 +98,18 @@ function newSeed(seedType)
     }
     newSeed.seedTimeout = setTimeout(function()
     { 
-        field.removeChild(newSeed.htmlElement);
-        allSeeds.splice(newSeed, 1);
+        try {
+            field.removeChild(newSeed.htmlElement);
+            allSeeds.splice(newSeed, 1);
+        }
+        catch (error) {
+            console.error(error);
+        }
     }, seedLifetime);
 
     seedId = seedId +1; //incrementing id for next seed
+
+    hitSeed(); //checking if the new seed appeared on pouleto
 }
 
 function hitSeed()
@@ -146,7 +151,6 @@ class Wolf
 function newWolf()
 {
     wolf = new Wolf();
-    let tryNewWolf = hitWolf(); //checking if wolf appeared on pouleto
     
     field.appendChild(wolf.htmlElement);
     wolfTimeout = setTimeout(function()
@@ -155,6 +159,7 @@ function newWolf()
     }, wolfLifetime);
 
     wolfMovesInterval = setInterval(moveWolf, wolfLifetime / wolfNumberMoves);
+    let tryNewWolf = hitWolf(); //checking if wolf appeared on pouleto
 }
 
 function hitWolf()
@@ -197,8 +202,6 @@ function hitWolf()
         {
             looseGame();
         }
-
-        return true;
     }
 }
 
@@ -300,7 +303,7 @@ function hitLife()
         clearTimeout(lifeTimeout);
         field.removeChild(life.htmlElement);
         life = null;
-        updateLives(currentPouletoLives + life.value);
+        updateLives(currentPouletoLives + 1);
     }
 } 
 
