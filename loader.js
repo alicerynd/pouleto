@@ -1,11 +1,11 @@
 // Loader
 
-setTimeout(function ()
+setTimeout(function () // fade out loading bloc
 {
     loading.classList.toggle('fade');
 }, 1000);
 
-setTimeout(function()
+setTimeout(function() // showing header, navbar and field blocs
 {
     loading.style.display = "none";
     content.style.display = "block";
@@ -13,6 +13,5 @@ setTimeout(function()
 
 setTimeout(function()
 {
-    content.classList.toggle('fade');
-    //startGame();
+    content.classList.toggle('fade'); 
 }, 1600);

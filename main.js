@@ -1,17 +1,17 @@
 // VARIABLES
 
-const content = document.getElementById("content") //used for loader, contains header and field
-const field = document.getElementById("field")
-const pouleto = document.getElementById("pouleto")
-let wolf
+const content = document.getElementById("content"); //used for loader, contains header and field
+const field = document.getElementById("field");
+const pouleto = document.getElementById("pouleto");
+let wolf;
 let life = null;
 
-const displayScore = document.getElementById("score") //displays score during the game
-const displayScoreLost = document.getElementById("displayScoreLost") //displays score when you loose
-const pouletoLivesDisplay = document.getElementById("pouletoLivesDisplay") //displays number of lives during the game
+const displayScore = document.getElementById("score"); //displays score during the game
+const displayScoreLost = document.getElementById("displayScoreLost"); //displays score when you loose
+const pouletoLivesDisplay = document.getElementById("pouletoLivesDisplay"); //displays number of lives during the game
 
-const Xcoordinates = [20, 120, 220, 320, 420, 520, 620, 720, 820, 920, 1020] //possible horizontal positions
-const Ycoordinates = [20, 120, 220, 320, 420] //possible vertical positions
+const Xcoordinates = [20, 120, 220, 320, 420, 520, 620, 720, 820, 920, 1020]; //possible horizontal positions
+const Ycoordinates = [20, 120, 220, 320, 420]; //possible vertical positions
 
 const loading = document.getElementById("loading");
 const intro = document.getElementById("intro"); 
@@ -100,8 +100,8 @@ function newSeed(seedType)
     }
     newSeed.seedTimeout = setTimeout(function()
     { 
-        field.removeChild(newSeed.htmlElement)
-        allSeeds.splice(newSeed, 1)
+        field.removeChild(newSeed.htmlElement);
+        allSeeds.splice(newSeed, 1);
     }, seedLifetime);
 
     seedId = seedId +1; //incrementing id for next seed
@@ -151,7 +151,7 @@ function newWolf()
     field.appendChild(wolf.htmlElement);
     wolfTimeout = setTimeout(function()
     { 
-        field.removeChild(wolf.htmlElement)
+        field.removeChild(wolf.htmlElement);
     }, wolfLifetime);
 
     wolfMovesInterval = setInterval(moveWolf, wolfLifetime / wolfNumberMoves);
@@ -167,21 +167,21 @@ function hitWolf()
 
         if (pouleto.style.backgroundImage == "url(\"images/pouleto_right.png\")")
         {
-            pouleto.style.backgroundImage = "url(\"images/pouleto_hurt_right.gif\")"
+            pouleto.style.backgroundImage = "url(\"images/pouleto_hurt_right.gif\")";
             document.onkeydown = undefined;
             setTimeout(() =>
             { 
-                pouleto.style.backgroundImage = "url(\"images/pouleto_right.png\")"
+                pouleto.style.backgroundImage = "url(\"images/pouleto_right.png\")";
                 document.onkeydown = movePouleto;
             }, 1300);
         }
         else if (pouleto.style.backgroundImage == "url(\"images/pouleto_left.png\")")
         {
-            pouleto.style.backgroundImage = "url(\"images/pouleto_hurt_left.gif\")"
+            pouleto.style.backgroundImage = "url(\"images/pouleto_hurt_left.gif\")";
             document.onkeydown = undefined;
             setTimeout(() =>
             { 
-                pouleto.style.backgroundImage = "url(\"images/pouleto_left.png\")"
+                pouleto.style.backgroundImage = "url(\"images/pouleto_left.png\")";
                 document.onkeydown = movePouleto;
             }, 1300);
         }
@@ -190,7 +190,7 @@ function hitWolf()
         
         clearTimeout(wolfTimeout);
         clearInterval(wolfMovesInterval);
-        field.removeChild(wolf.htmlElement)
+        field.removeChild(wolf.htmlElement);
         wolf = undefined;
 
         if (currentPouletoLives <= 0)
@@ -225,6 +225,7 @@ function moveWolf()
         }
 
         let movePicked = possibleWolfMoves[Math.floor(Math.random() * possibleWolfMoves.length)];
+        
         switch (movePicked)
         {
             case "top":
@@ -283,7 +284,7 @@ function newLife()
         field.appendChild(life.htmlElement);
         lifeTimeout = setTimeout(function()
         { 
-            field.removeChild(life.htmlElement)
+            field.removeChild(life.htmlElement);
             life = null;
         }, lifeLifetime);
 
@@ -297,9 +298,9 @@ function hitLife()
     {
         life.soundToPlay.play();
         clearTimeout(lifeTimeout);
-        field.removeChild(life.htmlElement)
+        field.removeChild(life.htmlElement);
         life = null;
-        updateLives(currentPouletoLives + 1);
+        updateLives(currentPouletoLives + life.value);
     }
 } 
 
