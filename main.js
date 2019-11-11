@@ -42,7 +42,7 @@ let goldenSeedLifetime = 2000; //setting golden seed's lifetime
 let allSeeds = []; //array with all the seeds on the field
 
 let wolfInterval; //new wolf interval
-let wolfDelay = 5600; //time between 2 wolves
+let wolfDelay = 7000; //time between 2 wolves
 let wolfLifetime = 4000; //setting wolf's lifetime
 let wolfTimeout; //timout of the wolf, using wolfLifetime
 let wolfMovesInterval; //new wolf movement interval
@@ -66,6 +66,7 @@ class Seed
         this.top = Ycoordinates[Math.floor(Math.random() * Ycoordinates.length)];
         this.htmlElement.style.left = this.left + "px";
         this.htmlElement.style.top = this.top + "px";
+        this.lock = false;
      
         if (seedType == "normal_seed")
         {
@@ -98,12 +99,11 @@ function newSeed(seedType)
     }
     newSeed.seedTimeout = setTimeout(function()
     { 
-        try {
+        if (!newSeed.lock)
+        {
+            newSeed.lock = true;
             field.removeChild(newSeed.htmlElement);
             allSeeds.splice(newSeed, 1);
-        }
-        catch (error) {
-            console.error(error);
         }
     }, seedLifetime);
 
@@ -115,8 +115,9 @@ function newSeed(seedType)
 function hitSeed()
 {
     const seedToRemove = allSeeds.find((seed) => pouleto_top === seed.top && pouleto_left === seed.left); //looking for a seed that would be in the same place as pouleto
-    if (seedToRemove != undefined) //if there is one
+    if (seedToRemove != undefined && !seedToRemove.lock) //if there is one and it is not locked
     { 
+        seedToRemove.lock = true;
         const seedToRemoveIndex = allSeeds.findIndex((seed) => pouleto_top === seed.top && pouleto_left === seed.left); // find seed's index in the array
         seedToRemove.soundToPlay.play();
         
@@ -153,12 +154,13 @@ function newWolf()
     wolf = new Wolf();
     
     field.appendChild(wolf.htmlElement);
+    wolfMovesInterval = setInterval(moveWolf, wolfLifetime / wolfNumberMoves);
     wolfTimeout = setTimeout(function()
     { 
         field.removeChild(wolf.htmlElement);
+        wolf = undefined;
     }, wolfLifetime);
 
-    wolfMovesInterval = setInterval(moveWolf, wolfLifetime / wolfNumberMoves);
     let tryNewWolf = hitWolf(); //checking if wolf appeared on pouleto
 }
 
@@ -207,7 +209,7 @@ function hitWolf()
 
 function moveWolf()
 {
-    if (wolf.movesDone < wolfNumberMoves)
+    if (wolf.movesDone < wolfNumberMoves - 1)
     {
         let possibleWolfMoves = [];
         if (wolf.top > 20)
