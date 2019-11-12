@@ -235,76 +235,79 @@ function hitWolf()
 
 function moveWolf()
 {
-    if (wolf.movesDone < wolfNumberMoves - 1)
+    if (wolf != undefined)
     {
-        let possibleWolfMoves = [];
-
-        if (pouleto_top < wolf.top) // if wolf is under pouleto
+        if (wolf.movesDone < wolfNumberMoves - 1)
         {
-            possibleWolfMoves.push("top");
-        }
-        if (pouleto_top > wolf.top) // if wolf is above pouleto
-        {
-            possibleWolfMoves.push("bottom");
-        }
-        if (pouleto_left < wolf.left) // if wolf is on the right side of pouleto
-        {
-            possibleWolfMoves.push("left");
-        }
-        if (pouleto_left > wolf.left) // if wolf is on the left side of pouleto
-        {
-            possibleWolfMoves.push("right");
-        }
+            let possibleWolfMoves = [];
 
-        // RANDOM MOVE
+            if (pouleto_top < wolf.top) // if wolf is under pouleto
+            {
+                possibleWolfMoves.push("top");
+            }
+            if (pouleto_top > wolf.top) // if wolf is above pouleto
+            {
+                possibleWolfMoves.push("bottom");
+            }
+            if (pouleto_left < wolf.left) // if wolf is on the right side of pouleto
+            {
+                possibleWolfMoves.push("left");
+            }
+            if (pouleto_left > wolf.left) // if wolf is on the left side of pouleto
+            {
+                possibleWolfMoves.push("right");
+            }
 
-        // if (wolf.top > 20)
-        // {
-        //     possibleWolfMoves.push("top");
-        // }
-        // if (wolf.top < 420)
-        // {
-        //     possibleWolfMoves.push("bottom");
-        // }
-        // if (wolf.left > 20)
-        // {
-        //     possibleWolfMoves.push("left");
-        // }
-        // if (wolf.left < 1020)
-        // {
-        //     possibleWolfMoves.push("right");
-        // }
+            // RANDOM MOVE
 
-        let movePicked = possibleWolfMoves[Math.floor(Math.random() * possibleWolfMoves.length)];
-    
-        switch (movePicked)
-        {
-            case "top":
-                wolf.top = wolf.top - 100;
-                wolf.htmlElement.style.top = wolf.top + "px";
-                break;
-            case "bottom":
-                wolf.top = wolf.top + 100;
-                wolf.htmlElement.style.top = wolf.top + "px";
-                break;
-            case "left":
-                wolf.left = wolf.left - 100; 
-                wolf.htmlElement.style.left = wolf.left + "px";
-                break;
-            case "right":
-                wolf.left = wolf.left + 100; 
-                wolf.htmlElement.style.left = wolf.left + "px";
-                break;
-            default:
-                console.log("No moves could be made")
+            // if (wolf.top > 20)
+            // {
+            //     possibleWolfMoves.push("top");
+            // }
+            // if (wolf.top < 420)
+            // {
+            //     possibleWolfMoves.push("bottom");
+            // }
+            // if (wolf.left > 20)
+            // {
+            //     possibleWolfMoves.push("left");
+            // }
+            // if (wolf.left < 1020)
+            // {
+            //     possibleWolfMoves.push("right");
+            // }
+
+            let movePicked = possibleWolfMoves[Math.floor(Math.random() * possibleWolfMoves.length)];
+        
+            switch (movePicked)
+            {
+                case "top":
+                    wolf.top = wolf.top - 100;
+                    wolf.htmlElement.style.top = wolf.top + "px";
+                    break;
+                case "bottom":
+                    wolf.top = wolf.top + 100;
+                    wolf.htmlElement.style.top = wolf.top + "px";
+                    break;
+                case "left":
+                    wolf.left = wolf.left - 100; 
+                    wolf.htmlElement.style.left = wolf.left + "px";
+                    break;
+                case "right":
+                    wolf.left = wolf.left + 100; 
+                    wolf.htmlElement.style.left = wolf.left + "px";
+                    break;
+                default:
+                    console.log("No moves could be made")
+            }
+            wolf.movesDone++;
+
+            hitWolf();
         }
-        wolf.movesDone++;
-
-        hitWolf();
-    }
-    else
-    {
-        clearInterval(wolfMovesInterval);
+        else
+        {
+            clearInterval(wolfMovesInterval);
+        }
     }
 }
 
