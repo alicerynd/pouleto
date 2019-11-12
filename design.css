@@ -217,6 +217,17 @@ header p
 .golden_seed
 {background-image: url("images/golden_seed.png");}
 
+.plusFive
+{
+    width: 100px;
+    height: 100px;
+    background-image: url("images/plusFive.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    z-index: 10;
+}
+
 /* Other items */
 
 .bomb
@@ -261,6 +272,18 @@ header p
     width: 100px;
     height: 100px;
     position: absolute;
+    z-index: 3;
+}
+
+.egg
+{
+    background-image: url("images/egg.gif");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    transition: all 0.2s ease-out;
     z-index: 3;
 }
 

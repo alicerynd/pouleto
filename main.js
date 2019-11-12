@@ -79,6 +79,12 @@ class Seed
             this.soundToPlay = new Audio('sounds/golden_seed.mp3');
         }
      
+        this.afterElement = document.createElement("div");
+        this.afterElement.className = "plusFive";
+        this.afterElement.timeout = 1200;
+        this.afterElement.style.left = this.left + "px";
+        this.afterElement.style.top = this.top + "px";
+        
         this.seedTimeout = null;
     }
 }
@@ -116,7 +122,7 @@ function hitSeed()
 {
     const seedToRemove = allSeeds.find((seed) => pouleto_top === seed.top && pouleto_left === seed.left); //looking for a seed that would be in the same place as pouleto
     if (seedToRemove != undefined && !seedToRemove.lock) //if there is one and it is not locked
-    { 
+    {
         seedToRemove.lock = true;
         const seedToRemoveIndex = allSeeds.findIndex((seed) => pouleto_top === seed.top && pouleto_left === seed.left); // find seed's index in the array
         seedToRemove.soundToPlay.play();
@@ -127,6 +133,15 @@ function hitSeed()
         clearTimeout(seedToRemove.seedTimeout);
         field.removeChild(seedToRemove.htmlElement);
         allSeeds.splice(seedToRemoveIndex, 1);
+
+        if (seedToRemove.htmlElement.className == "seed golden_seed")
+        {
+            field.appendChild(seedToRemove.afterElement);
+            setTimeout(function()
+            { 
+                field.removeChild(seedToRemove.afterElement);
+            }, seedToRemove.afterElement.timeout);
+        }
     }
 } 
 
@@ -143,7 +158,6 @@ class Wolf
         this.htmlElement.style.left = this.left + "px";
         this.htmlElement.style.top = this.top + "px";
         this.movesDone = 0;
-        this.scoreValue = -1;
         this.damage = 1;
         this.soundToPlay = new Audio('sounds/wolf.mp3'); 
     }
@@ -182,31 +196,9 @@ function hitWolf()
 {
     if (wolf != undefined && pouleto_top === wolf.top && pouleto_left === wolf.left) //checking if wolf is here, and if he is on pouetlo
     {
-        wolf.soundToPlay.play();        
-        score = score + wolf.scoreValue;
-        displayScore.innerHTML = score;
+        wolf.soundToPlay.play();
 
-        if (pouleto.style.backgroundImage == "url(\"images/pouleto_right.png\")")
-        {
-            pouleto.style.backgroundImage = "url(\"images/pouleto_hurt_right.gif\")";
-            document.onkeydown = undefined;
-            setTimeout(() =>
-            { 
-                pouleto.style.backgroundImage = "url(\"images/pouleto_right.png\")";
-                document.onkeydown = movePouleto;
-            }, 1300);
-        }
-        else if (pouleto.style.backgroundImage == "url(\"images/pouleto_left.png\")")
-        {
-            pouleto.style.backgroundImage = "url(\"images/pouleto_hurt_left.gif\")";
-            document.onkeydown = undefined;
-            setTimeout(() =>
-            { 
-                pouleto.style.backgroundImage = "url(\"images/pouleto_left.png\")";
-                document.onkeydown = movePouleto;
-            }, 1300);
-        }
-
+        pouletoHurt();
         updateLives(currentPouletoLives - wolf.damage)
         
         clearTimeout(wolfTimeout);

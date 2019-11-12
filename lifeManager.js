@@ -25,3 +25,27 @@ function updateLives(NumberOfLives)
     
     currentPouletoLives = NumberOfLives; // updating current number of lives gobal variable
 }
+
+function pouletoHurt()
+{
+    if (pouleto.style.backgroundImage == "url(\"images/pouleto_right.png\")")
+    {
+        pouleto.style.backgroundImage = "url(\"images/pouleto_hurt_right.gif\")";
+        document.onkeydown = undefined;
+        setTimeout(() =>
+        { 
+            pouleto.style.backgroundImage = "url(\"images/pouleto_right.png\")";
+            document.onkeydown = movePouleto;
+        }, 1300);
+    }
+    else if (pouleto.style.backgroundImage == "url(\"images/pouleto_left.png\")")
+    {
+        pouleto.style.backgroundImage = "url(\"images/pouleto_hurt_left.gif\")";
+        document.onkeydown = undefined;
+        setTimeout(() =>
+        { 
+            pouleto.style.backgroundImage = "url(\"images/pouleto_left.png\")";
+            document.onkeydown = movePouleto;
+        }, 1300);
+    }
+}
