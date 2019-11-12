@@ -170,7 +170,6 @@ function newWolf()
     }
     
     field.appendChild(wolf.htmlElement);
-    console.log("Wolf spawned out pouleto")
     wolfMovesInterval = setInterval(moveWolf, wolfLifetime / wolfNumberMoves);
     wolfTimeout = setTimeout(function()
     { 
@@ -227,25 +226,45 @@ function moveWolf()
     if (wolf.movesDone < wolfNumberMoves - 1)
     {
         let possibleWolfMoves = [];
-        if (wolf.top > 20)
+
+        if (pouleto_top < wolf.top) // if wolf is under pouleto
         {
             possibleWolfMoves.push("top");
         }
-        if (wolf.top < 420)
+        if (pouleto_top > wolf.top) // if wolf is above pouleto
         {
             possibleWolfMoves.push("bottom");
         }
-        if (wolf.left > 20)
+        if (pouleto_left < wolf.left) // if wolf is on the right side of pouleto
         {
             possibleWolfMoves.push("left");
         }
-        if (wolf.left < 1020)
+        if (pouleto_left > wolf.left) // if wolf is on the left side of pouleto
         {
             possibleWolfMoves.push("right");
         }
 
+        // RANDOM MOVE
+
+        // if (wolf.top > 20)
+        // {
+        //     possibleWolfMoves.push("top");
+        // }
+        // if (wolf.top < 420)
+        // {
+        //     possibleWolfMoves.push("bottom");
+        // }
+        // if (wolf.left > 20)
+        // {
+        //     possibleWolfMoves.push("left");
+        // }
+        // if (wolf.left < 1020)
+        // {
+        //     possibleWolfMoves.push("right");
+        // }
+
         let movePicked = possibleWolfMoves[Math.floor(Math.random() * possibleWolfMoves.length)];
-        
+    
         switch (movePicked)
         {
             case "top":
