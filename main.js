@@ -151,17 +151,32 @@ class Wolf
 
 function newWolf()
 {
-    wolf = new Wolf();
+    wolf = new Wolf(); 
+    let tryNewWolf = false;
+
+    while (!tryNewWolf) //checking if wolf appeared on pouleto
+    {
+        if (pouleto_top === wolf.top && pouleto_left === wolf.left)
+        {
+            console.log("Wolf spawned on pouleto")
+            tryNewWolf = false;
+            wolf = undefined;
+            wolf = new Wolf();
+        }
+        else 
+        {
+            tryNewWolf = true;
+        }
+    }
     
     field.appendChild(wolf.htmlElement);
+    console.log("Wolf spawned out pouleto")
     wolfMovesInterval = setInterval(moveWolf, wolfLifetime / wolfNumberMoves);
     wolfTimeout = setTimeout(function()
     { 
         field.removeChild(wolf.htmlElement);
         wolf = undefined;
     }, wolfLifetime);
-
-    let tryNewWolf = hitWolf(); //checking if wolf appeared on pouleto
 }
 
 function hitWolf()
