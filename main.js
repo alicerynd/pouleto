@@ -91,7 +91,27 @@ class Seed
 
 function newSeed(seedType)
 {
-    const newSeed = new Seed("seed" + seedId, seedType);
+    let newSeed = new Seed("seed" + seedId, seedType);
+    let tryNewSeed = false;
+
+    while (!tryNewSeed) //checking if the seed appeared on an already existing seed
+    {
+        let verifySeeds = allSeeds.find((existingSeed) => newSeed.top === existingSeed.top && newSeed.left === existingSeed.left);
+        {
+            if (verifySeeds != undefined)
+            {
+                console.log("A seed appeared on an already existing seed")
+                tryNewSeed = false;
+                newSeed = undefined;
+                newSeed = new Seed("seed" + seedId, seedType);
+            }
+            else 
+            {
+                tryNewSeed = true;
+            }
+        }
+    }   
+
     field.appendChild(newSeed.htmlElement);
     allSeeds.push(newSeed);
 
@@ -115,7 +135,7 @@ function newSeed(seedType)
 
     seedId = seedId +1; //incrementing id for next seed
 
-    hitSeed(); //checking if the new seed appeared on pouleto
+    hitSeed(); // checking if the new seed appeared on pouleto
 }
 
 function hitSeed()
