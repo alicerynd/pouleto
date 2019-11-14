@@ -251,7 +251,7 @@ function hitWolf()
             wolf = undefined;
         }, wolf.afterElement.timeout);
 
-        if (currentPouletoLives <= 0 || score <= 0)
+        if (currentPouletoLives <= 0)
         {
             looseGame();
         }
