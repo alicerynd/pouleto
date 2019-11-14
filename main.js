@@ -7,7 +7,8 @@ let wolf;
 let life = null;
 
 const displayScore = document.getElementById("score"); //displays score during the game
-const displayScoreLost = document.getElementById("displayScoreLost"); //displays score when you loose
+const displayScoreEnd = document.getElementById("displayScoreEnd"); //displays score when you loose
+const scoreWonIntro = document.getElementById("scoreWon"); //displays score to reach in the intro bloc
 const pouletoLivesDisplay = document.getElementById("pouletoLivesDisplay"); //displays number of lives during the game
 
 const Xcoordinates = [20, 120, 220, 320, 420, 520, 620, 720, 820, 920, 1020]; //possible horizontal positions
@@ -17,11 +18,14 @@ const loading = document.getElementById("loading");
 const intro = document.getElementById("intro"); 
 const pause = document.getElementById("pause");
 const lost = document.getElementById("lost");
+const won = document.getElementById("won");
 const pauseButton = document.getElementById("pauseButton");
 const restartButton = document.getElementById("restartButton");
 
 let gameStatus = "gameOn"; //set initial Game Status
 let score = 0; //set initial score
+let scoreWon = 50; //set score you need to win a game
+scoreWonIntro.innerHTML = scoreWon;
 let pouletoLives = 3; //set initial number of lives
 let currentPouletoLives; //contains current number of lives
 
@@ -162,6 +166,11 @@ function hitSeed()
                 field.removeChild(seedToRemove.afterElement);
             }, seedToRemove.afterElement.timeout);
         }
+
+        if (score >= scoreWon)
+        {
+            winGame();
+        }
     }
 } 
 
@@ -179,7 +188,12 @@ class Wolf
         this.htmlElement.style.top = this.top + "px";
         this.movesDone = 0;
         this.damage = 1;
+        this.scoreValue = 5;
         this.soundToPlay = new Audio('sounds/wolf.mp3'); 
+
+        this.afterElement = document.createElement("div");
+        this.afterElement.className = "minusFive";
+        this.afterElement.timeout = 1200;
     }
 }
 
@@ -217,6 +231,9 @@ function hitWolf()
     if (wolf != undefined && pouleto_top === wolf.top && pouleto_left === wolf.left) //checking if wolf is here, and if he is on pouetlo
     {
         wolf.soundToPlay.play();
+        
+        score = score - wolf.scoreValue;
+        displayScore.innerHTML = score;
 
         pouletoHurt();
         updateLives(currentPouletoLives - wolf.damage)
@@ -224,9 +241,17 @@ function hitWolf()
         clearTimeout(wolfTimeout);
         clearInterval(wolfMovesInterval);
         field.removeChild(wolf.htmlElement);
-        wolf = undefined;
+        
+        wolf.afterElement.style.left = wolf.left + "px";
+        wolf.afterElement.style.top = wolf.top + "px";
+        field.appendChild(wolf.afterElement);
+        setTimeout(function()
+        { 
+            field.removeChild(wolf.afterElement);
+            wolf = undefined;
+        }, wolf.afterElement.timeout);
 
-        if (currentPouletoLives <= 0)
+        if (currentPouletoLives <= 0 || score <= 0)
         {
             looseGame();
         }

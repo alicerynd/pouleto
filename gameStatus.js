@@ -52,9 +52,22 @@ function looseGame()
 {
     stopGame();
     gameStatus = "gameLost";
-    displayScoreLost.innerHTML = score;
+    displayScoreEnd.innerHTML = score;
     pouleto.style.display = "none";
     lost.style.display = "block";
+    pauseButton.style.display = "none";
+    restartButton.style.display = "block";
+}
+
+// WIN GAME
+
+function winGame()
+{
+    stopGame();
+    gameStatus = "gameWon";
+    displayScoreEnd.innerHTML = score;
+    pouleto.style.display = "none";
+    won.style.display = "block";
     pauseButton.style.display = "none";
     restartButton.style.display = "block";
 }
@@ -79,6 +92,7 @@ function restartGame()
     restartButton.style.display = "none";
     pauseButton.style.display = "block";
     lost.style.display = "none";
+    won.style.display = "none";
     
     startGame();
 }

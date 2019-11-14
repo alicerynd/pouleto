@@ -50,7 +50,7 @@
                 <div style="display: flex; justify-content: center; align-items: center;">
                     <div style="padding-right: 40px; text-align: left">
                         <h2 class="main_title" style="font-size: 45px">POULETO</h2>
-                        <p style="font-size: 20px;">Help Pouleto eating the seeds!<br />Beware the wolf...</p>
+                        <p style="font-size: 20px;">Help Pouleto eating the seeds<br />until you reach <span id="scoreWon"></span> points!<br />Beware the wolf...</p>
                         <button id="pauseButton" onclick="startGame()">Start !</button>
                     </div>
                     <div style="border-left: 1px solid #7B7D84; padding-left: 40px;">
@@ -62,18 +62,32 @@
             <!-- Pause bloc -->
 
             <div id="pause">
-                <img style="width: 150px;" src="images/pouleto_sleep.png" />
-                <span>PAUSE</span>
+                <div style="text-align: center;">
+                    <img style="width: 150px;" src="images/pouleto_sleep.png" />
+                    <p style="font-size: 120px;">PAUSE</p>
+                </div>
             </div>
            
             <!-- Game lost bloc -->
             
             <div id="lost">
-                <div style="display:flex; justify-content:center; align-items:center;">
+                <div style="text-align: center;">
                     <img style="width: 150px; margin-right: 40px" src="images/pouleto_sad.png" />
                     <p>
                         <span style="font-size: 120px;">GAME OVER</span><br />
-                        <span style="font-size: 45px">YOUR SCORE IS <span id="displayScoreLost"></span></span>
+                        <span style="font-size: 45px">YOUR SCORE IS <span id="displayScoreEnd"></span></span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Game won bloc -->
+            
+            <div id="won">
+                <div style="text-align: center;">
+                    <img style="width: 150px; margin-right: 40px" src="images/pouleto_happy.png" />
+                    <p>
+                        <span style="font-size: 120px;">YOU WON!</span><br />
+                        <span style="font-size: 45px">YOUR SCORE IS <span id="displayScoreEnd"></span></span>
                     </p>
                 </div>
             </div>
