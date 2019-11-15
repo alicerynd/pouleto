@@ -5,6 +5,7 @@ function detectCollision()
     hitSeed();
     hitWolf();
     hitLife();
+    hitTractor();
 }
 
 function movePouleto(e) 

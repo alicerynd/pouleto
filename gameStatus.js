@@ -12,7 +12,8 @@ function startGame()
     
     seedInterval = setInterval(() => newSeed("normal_seed"), seedDelay);
     goldenSeedInterval = setInterval(() => newSeed("golden_seed"), goldenSeedDelay);
-    wolfInterval = setInterval(newWolf, wolfDelay);
+    //wolfInterval = setInterval(newWolf, wolfDelay);
+    tractorInterval = setInterval(newTractor, tractorDelay);
     lifeInterval = setInterval(newLife, lifeDelay);
 }
 
@@ -23,6 +24,7 @@ function stopGame()
     clearInterval(seedInterval);
     clearInterval(goldenSeedInterval);
     clearInterval(wolfInterval);
+    clearInterval(tractorInterval);
     clearInterval(lifeInterval);
 }
 
@@ -52,7 +54,7 @@ function looseGame()
 {
     stopGame();
     gameStatus = "gameLost";
-    displayScoreEnd.innerHTML = score;
+    displayScoreEndLoose.innerHTML = score;
     pouleto.style.display = "none";
     lost.style.display = "block";
     pauseButton.style.display = "none";
@@ -65,7 +67,7 @@ function winGame()
 {
     stopGame();
     gameStatus = "gameWon";
-    displayScoreEnd.innerHTML = score;
+    displayScoreEndWin.innerHTML = score;
     pouleto.style.display = "none";
     won.style.display = "block";
     pauseButton.style.display = "none";
@@ -87,6 +89,9 @@ function restartGame()
     
     if (wolf != undefined)
     {field.removeChild(document.getElementById("wolf"));}
+
+    if (tractor != undefined)
+    {field.removeChild(document.getElementById("tractor"));}
 
     displayScore.innerHTML = score;
     restartButton.style.display = "none";

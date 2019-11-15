@@ -200,6 +200,21 @@ header p
     z-index: 5;
 }
 
+/* Tractor */
+
+#tractor
+{
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+    position: absolute;
+    /* transition: all 1s linear; */
+    z-index: 6;
+}
+
 /* Seeds */
 
 .seed

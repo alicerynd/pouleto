@@ -1,6 +1,11 @@
 function updateLives(NumberOfLives)
 {
 
+    if (NumberOfLives < 0)
+    {
+        NumberOfLives = 0;
+    }
+    
     while (pouletoLivesDisplay.firstChild) // initializing : removing all displayed lives
     {
         pouletoLivesDisplay.removeChild(pouletoLivesDisplay.firstChild);
@@ -31,7 +36,7 @@ function pouletoHurt()
     if (pouleto.style.backgroundImage == "url(\"images/pouleto_right.png\")")
     {
         pouleto.style.backgroundImage = "url(\"images/pouleto_hurt_right.gif\")";
-        //document.onkeydown = undefined;
+        document.onkeydown = undefined;
         setTimeout(() =>
         { 
             pouleto.style.backgroundImage = "url(\"images/pouleto_right.png\")";
@@ -41,7 +46,7 @@ function pouletoHurt()
     else if (pouleto.style.backgroundImage == "url(\"images/pouleto_left.png\")")
     {
         pouleto.style.backgroundImage = "url(\"images/pouleto_hurt_left.gif\")";
-        //document.onkeydown = undefined;
+        document.onkeydown = undefined;
         setTimeout(() =>
         { 
             pouleto.style.backgroundImage = "url(\"images/pouleto_left.png\")";

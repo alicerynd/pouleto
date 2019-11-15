@@ -4,10 +4,12 @@ const content = document.getElementById("content"); //used for loader, contains 
 const field = document.getElementById("field");
 const pouleto = document.getElementById("pouleto");
 let wolf;
+let tractor;
 let life = null;
 
 const displayScore = document.getElementById("score"); //displays score during the game
-const displayScoreEnd = document.getElementById("displayScoreEnd"); //displays score when you loose
+const displayScoreEndLoose = document.getElementById("displayScoreEndLoose"); //displays score when you loose
+const displayScoreEndWin = document.getElementById("displayScoreEndWin"); //displays score when you win
 const scoreWonIntro = document.getElementById("scoreWon"); //displays score to reach in the intro bloc
 const pouletoLivesDisplay = document.getElementById("pouletoLivesDisplay"); //displays number of lives during the game
 
@@ -51,6 +53,10 @@ let wolfLifetime = 4000; //setting wolf's lifetime
 let wolfTimeout; //timout of the wolf, using wolfLifetime
 let wolfMovesInterval; //new wolf movement interval
 let wolfNumberMoves = 8; //setting number of moves wolf has to make in a lifetime
+
+let tractorInterval; //new tractor interval
+let tractorDelay = 7000; //time between 2 tractors
+let tractorMovesInterval; //new tractor movement interval
 
 let lifeInterval; //new life interval
 let lifeDelay = 10000; //time between 2 lives
@@ -102,9 +108,9 @@ function newSeed(seedType)
     {
         let verifySeeds = allSeeds.find((existingSeed) => newSeed.top === existingSeed.top && newSeed.left === existingSeed.left);
         {
-            if (verifySeeds != undefined)
+            if (verifySeeds != undefined || pouleto_top === newSeed.top && pouleto_left === newSeed.left)
             {
-                console.log("A seed appeared on an already existing seed")
+                console.log("A seed appeared on an already existing seed or on pouleto")
                 tryNewSeed = false;
                 newSeed = undefined;
                 newSeed = new Seed("seed" + seedId, seedType);
@@ -222,6 +228,7 @@ function newWolf()
     wolfTimeout = setTimeout(function()
     { 
         field.removeChild(wolf.htmlElement);
+        clearInterval(wolfMovesInterval);
         wolf = undefined;
     }, wolfLifetime);
 }
@@ -250,11 +257,11 @@ function hitWolf()
             field.removeChild(wolf.afterElement);
             wolf = undefined;
         }, wolf.afterElement.timeout);
+    }
 
-        if (currentPouletoLives <= 0)
-        {
-            looseGame();
-        }
+    if (currentPouletoLives <= 0)
+    {
+        looseGame();
     }
 }
 
@@ -282,25 +289,6 @@ function moveWolf()
             {
                 possibleWolfMoves.push("right");
             }
-
-            // RANDOM MOVE
-
-            // if (wolf.top > 20)
-            // {
-            //     possibleWolfMoves.push("top");
-            // }
-            // if (wolf.top < 420)
-            // {
-            //     possibleWolfMoves.push("bottom");
-            // }
-            // if (wolf.left > 20)
-            // {
-            //     possibleWolfMoves.push("left");
-            // }
-            // if (wolf.left < 1020)
-            // {
-            //     possibleWolfMoves.push("right");
-            // }
 
             let movePicked = possibleWolfMoves[Math.floor(Math.random() * possibleWolfMoves.length)];
         
@@ -332,6 +320,77 @@ function moveWolf()
         else
         {
             clearInterval(wolfMovesInterval);
+        }
+    }
+}
+
+// ------------------------- TRACTOR -------------------------
+
+class Tractor 
+{
+    constructor()
+    {
+        this.htmlElement = document.createElement("div");
+        this.htmlElement.innerHTML = '<img style="width: 130px;" src="images/tractor.gif" />';
+        this.htmlElement.id = "tractor";
+        this.left = -80;
+        this.top = Ycoordinates[Math.floor(Math.random() * Ycoordinates.length)];
+        this.htmlElement.style.left = this.left + "px";
+        this.htmlElement.style.top = this.top + "px";
+        this.movesDone = 0;
+        this.damage = 3;
+        this.soundToPlay = new Audio('sounds/chickenscream.mp3'); 
+    }
+}
+
+function newTractor()
+{
+    tractor = new Tractor(); 
+    
+    field.appendChild(tractor.htmlElement);
+    tractorMovesInterval = setInterval(moveTractor, 500);
+    tractorTimeout = setTimeout(function()
+    {
+        field.removeChild(tractor.htmlElement);
+        clearInterval(tractorMovesInterval);
+        tractor = undefined;
+    }, 6500);
+}
+
+function hitTractor()
+{
+    if (tractor != undefined && pouleto_top === tractor.top && pouleto_left === tractor.left) //checking if tractor is here, and if he is on pouetlo
+    {
+        tractor.soundToPlay.play();
+        
+        updateLives(currentPouletoLives - tractor.damage)
+        
+        clearTimeout(tractorTimeout);
+        clearInterval(tractorMovesInterval);
+        field.removeChild(tractor.htmlElement);
+        tractor = undefined;
+
+        if (currentPouletoLives <= 0)
+        {
+            looseGame();
+        }
+    }
+}
+
+function moveTractor()
+{
+    if (tractor != undefined)
+    {
+        if (tractor.movesDone < 13)
+        {
+            tractor.left = tractor.left + 100;
+            tractor.htmlElement.style.left = tractor.left + "px";
+            tractor.movesDone++;
+            hitTractor();
+        }
+        else
+        {
+            clearInterval(tractorMovesInterval);
         }
     }
 }
