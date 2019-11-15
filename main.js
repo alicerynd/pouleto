@@ -56,7 +56,9 @@ let wolfNumberMoves = 8; //setting number of moves wolf has to make in a lifetim
 
 let tractorInterval; //new tractor interval
 let tractorDelay = 7000; //time between 2 tractors
+let tractorTimeout;
 let tractorMovesInterval; //new tractor movement interval
+let tractorDirection = ["left", "right"]; //direction of the tractor
 
 let lifeInterval; //new life interval
 let lifeDelay = 10000; //time between 2 lives
@@ -112,7 +114,6 @@ function newSeed(seedType)
             {
                 console.log("A seed appeared on an already existing seed or on pouleto")
                 tryNewSeed = false;
-                newSeed = undefined;
                 newSeed = new Seed("seed" + seedId, seedType);
             }
             else 
@@ -140,6 +141,7 @@ function newSeed(seedType)
             newSeed.lock = true;
             field.removeChild(newSeed.htmlElement);
             allSeeds.splice(newSeed, 1);
+            newSeed = undefined;
         }
     }, seedLifetime);
 
@@ -330,12 +332,23 @@ class Tractor
 {
     constructor()
     {
+        this.direction = tractorDirection[Math.floor(Math.random() * tractorDirection.length)];
         this.htmlElement = document.createElement("div");
-        this.htmlElement.innerHTML = '<img style="width: 130px;" src="images/tractor.gif" />';
         this.htmlElement.id = "tractor";
-        this.left = -80;
+        this.htmlElement.innerHTML = '<img style="width: 150px;" src="images/tractor_'+this.direction+'.gif" />';
+        
+        if (this.direction == "right")
+        {
+            this.left = -80;
+            this.htmlElement.style.left = (this.left - 20) + "px";
+        }
+        else if (this.direction == "left")
+        {
+            this.left = 1120;
+            this.htmlElement.style.left = (this.left + 20) + "px";
+        }
+        
         this.top = Ycoordinates[Math.floor(Math.random() * Ycoordinates.length)];
-        this.htmlElement.style.left = this.left + "px";
         this.htmlElement.style.top = this.top + "px";
         this.movesDone = 0;
         this.damage = 3;
@@ -383,8 +396,16 @@ function moveTractor()
     {
         if (tractor.movesDone < 13)
         {
-            tractor.left = tractor.left + 100;
-            tractor.htmlElement.style.left = tractor.left + "px";
+            if (tractor.direction == "right")
+            {
+                tractor.left = tractor.left + 100;
+                tractor.htmlElement.style.left = (tractor.left + 50) + "px";
+            }
+            else if (tractor.direction == "left")
+            {
+                tractor.left = tractor.left - 100;
+                tractor.htmlElement.style.left = (tractor.left - 50) + "px";
+            }
             tractor.movesDone++;
             hitTractor();
         }

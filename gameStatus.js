@@ -23,7 +23,9 @@ function stopGame()
 {
     clearInterval(seedInterval);
     clearInterval(goldenSeedInterval);
+    clearInterval(wolfMovesInterval);
     clearInterval(wolfInterval);
+    clearInterval(tractorMovesInterval);
     clearInterval(tractorInterval);
     clearInterval(lifeInterval);
 }
