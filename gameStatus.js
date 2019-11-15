@@ -12,7 +12,7 @@ function startGame()
     
     seedInterval = setInterval(() => newSeed("normal_seed"), seedDelay);
     goldenSeedInterval = setInterval(() => newSeed("golden_seed"), goldenSeedDelay);
-    //wolfInterval = setInterval(newWolf, wolfDelay);
+    wolfInterval = setInterval(newWolf, wolfDelay);
     tractorInterval = setInterval(newTractor, tractorDelay);
     lifeInterval = setInterval(newLife, lifeDelay);
 }
