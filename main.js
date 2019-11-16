@@ -1,20 +1,11 @@
-// VARIABLES
+// ------------------------- VARIABLES -------------------------
+
+// FIELD
 
 const content = document.getElementById("content"); //used for loader, contains header and field
 const field = document.getElementById("field");
-const pouleto = document.getElementById("pouleto");
-let wolf;
-let tractor;
-let life = null;
 
-const displayScore = document.getElementById("score"); //displays score during the game
-const displayScoreEndLoose = document.getElementById("displayScoreEndLoose"); //displays score when you loose
-const displayScoreEndWin = document.getElementById("displayScoreEndWin"); //displays score when you win
-const scoreWonIntro = document.getElementById("scoreWon"); //displays score to reach in the intro bloc
-const pouletoLivesDisplay = document.getElementById("pouletoLivesDisplay"); //displays number of lives during the game
-
-const Xcoordinates = [20, 120, 220, 320, 420, 520, 620, 720, 820, 920, 1020]; //possible horizontal positions
-const Ycoordinates = [20, 120, 220, 320, 420]; //possible vertical positions
+// HTML BLOCS FOR GAME STATUS
 
 const loading = document.getElementById("loading");
 const intro = document.getElementById("intro"); 
@@ -24,48 +15,81 @@ const won = document.getElementById("won");
 const pauseButton = document.getElementById("pauseButton");
 const restartButton = document.getElementById("restartButton");
 
-let gameStatus = "gameOn"; //set initial Game Status
-let score = 0; //set initial score
-let scoreWon = 50; //set score you need to win a game
-scoreWonIntro.innerHTML = scoreWon;
-let pouletoLives = 3; //set initial number of lives
-let currentPouletoLives; //contains current number of lives
+// POULETO
 
-//set initial pouleto position :
+const pouleto = document.getElementById("pouleto");
 let pouleto_left = 20; 
 let pouleto_top = 20; 
-pouleto.style.left = pouleto_left + "px";
-pouleto.style.top = pouleto_top + "px";
+    pouleto.style.left = pouleto_left + "px";
+    pouleto.style.top = pouleto_top + "px";
 
-let seedId = 1; //first seed id
-let seedInterval; //new seed interval 
-let goldenSeedInterval; //new golden seed interval
+// SCORE
+
+let score = 0; //set initial score
+const scoreWon = 50; //set score you need to win a game
+const displayScore = document.getElementById("score"); //displays score during the game
+const displayScoreEndLoose = document.getElementById("displayScoreEndLoose"); //displays score when you loose
+const displayScoreEndWin = document.getElementById("displayScoreEndWin"); //displays score when you win
+const scoreWonIntro = document.getElementById("scoreWon"); 
+    scoreWonIntro.innerHTML = scoreWon; //displays score to reach in the intro bloc
+
+// LIVES
+
+const pouletoLives = 3; //set initial number of lives
+let currentPouletoLives; //contains current number of lives
+const pouletoLivesDisplay = document.getElementById("pouletoLivesDisplay"); //Score navbar display
+
+// MISC
+
+const Xcoordinates = [20, 120, 220, 320, 420, 520, 620, 720, 820, 920, 1020]; //possible horizontal positions
+const Ycoordinates = [20, 120, 220, 320, 420]; //possible vertical positions
+let gameStatus = "gameOn"; //set initial Game Status
+
+// SEEDS
+
+let seedId = 1; //setting first seed id
+let seedInterval; //seed generator interval
+let goldenSeedInterval; //golden seed generator interval
 let seedDelay = 1000; //time before new normal seed appears
 let goldenSeedDelay = 6200; //time before new normal golden seed appears
-let seedLifetime; //time before seed dies
-let normalSeedLifetime = 4000; //setting normal seed's lifetime 
-let goldenSeedLifetime = 2000; //setting golden seed's lifetime 
-let allSeeds = []; //array with all the seeds on the field
+let seedLifetime; //time before any seed disappears
+let normalSeedLifetime = 4000; //time before normal seed disappears 
+let goldenSeedLifetime = 2000; //time before golden seed disappears 
+let allSeeds = []; //array which contains all the seeds on the field
 
-let wolfInterval; //new wolf interval
-let wolfDelay = 7000; //time between 2 wolves
-let wolfLifetime = 4000; //setting wolf's lifetime
-let wolfTimeout; //timout of the wolf, using wolfLifetime
-let wolfMovesInterval; //new wolf movement interval
+// WOLF
+
+let wolf; //wolf object
+let wolfInterval; //wolf generator interval
+let wolfDelay = 7800; //time between 2 wolves
+let wolfMovesInterval; //wolf movement generator interval
 let wolfNumberMoves = 8; //setting number of moves wolf has to make in a lifetime
+let wolfLifetime = 4000; //time before wolf disappears
+let wolfTimeout; //wolf's timout using wolfLifetime
 
-let tractorInterval; //new tractor interval
-let tractorDelay = 7000; //time between 2 tractors
-let tractorTimeout;
-let tractorMovesInterval; //new tractor movement interval
-let tractorDirection = ["left", "right"]; //direction of the tractor
+// TRACTOR
 
-let lifeInterval; //new life interval
-let lifeDelay = 10000; //time between 2 lives
-let lifeLifetime = 2000; //setting life's lifetime
-let lifeTimeout; //timout of the life, using lifeLifetime
+let tractor;
+let tractorDirection = ["left", "right"]; //possible directions of the tractor
+let tractorInterval; //tractor generator interval
+let tractorDelay = 20000; //time between 2 tractors
+let tractorMovesInterval; //tractor movement generator interval
+let tractorNumberMoves = 13; //setting number of moves tractor has to make to cross field
+let tractorSpeed = 500; //setting time tractor needs for one move
+let tractorLifetime = tractorSpeed * tractorNumberMoves; //time before wolf disappears
+let tractorTimeout; //tractor's timeout, using tractorLifetime
 
-// ------------------------- SEEDS -------------------------
+// NEW LIVES
+
+let life = null;
+let lifeInterval; //new lives generator interval
+let lifeDelay = 10000; //time between 2 new lives
+let lifeLifetime = 2000; //time before new life disappears
+let lifeTimeout; //new life's timout, using lifeLifetime
+
+
+// ------------------------- SEEDS MANAGER -------------------------
+
 
 class Seed 
 {
@@ -78,6 +102,7 @@ class Seed
         this.top = Ycoordinates[Math.floor(Math.random() * Ycoordinates.length)];
         this.htmlElement.style.left = this.left + "px";
         this.htmlElement.style.top = this.top + "px";
+        
         this.lock = false;
      
         if (seedType == "normal_seed")
@@ -89,14 +114,14 @@ class Seed
         {
             this.scoreValue = 5;
             this.soundToPlay = new Audio('sounds/golden_seed.mp3');
+            
+            this.afterElement = document.createElement("div");
+            this.afterElement.className = "plusFive";
+            this.afterElement.timeout = 1200;
+            this.afterElement.style.left = this.left + "px";
+            this.afterElement.style.top = this.top + "px";
         }
      
-        this.afterElement = document.createElement("div");
-        this.afterElement.className = "plusFive";
-        this.afterElement.timeout = 1200;
-        this.afterElement.style.left = this.left + "px";
-        this.afterElement.style.top = this.top + "px";
-        
         this.seedTimeout = null;
     }
 }
@@ -106,10 +131,12 @@ function newSeed(seedType)
     let newSeed = new Seed("seed" + seedId, seedType);
     let tryNewSeed = false;
 
-    while (!tryNewSeed) //checking if the seed appeared on an already existing seed
+    while (!tryNewSeed) 
     {
+        //looking in the seed array if there is an existing seed with the new seed coordinates   
         let verifySeeds = allSeeds.find((existingSeed) => newSeed.top === existingSeed.top && newSeed.left === existingSeed.left);
         {
+            //if the seed appeared on an already existing seed or on pouleto
             if (verifySeeds != undefined || pouleto_top === newSeed.top && pouleto_left === newSeed.left)
             {
                 console.log("A seed appeared on an already existing seed or on pouleto")
@@ -127,13 +154,11 @@ function newSeed(seedType)
     allSeeds.push(newSeed);
 
     if (seedType == "normal_seed")
-    {
-        seedLifetime = normalSeedLifetime;
-    }
+    {seedLifetime = normalSeedLifetime;}
+
     if (seedType == "golden_seed")
-    {
-        seedLifetime = goldenSeedLifetime;
-    }
+    {seedLifetime = goldenSeedLifetime;}
+
     newSeed.seedTimeout = setTimeout(function()
     { 
         if (!newSeed.lock)
@@ -152,11 +177,14 @@ function newSeed(seedType)
 
 function hitSeed()
 {
-    const seedToRemove = allSeeds.find((seed) => pouleto_top === seed.top && pouleto_left === seed.left); //looking for a seed that would be in the same place as pouleto
-    if (seedToRemove != undefined && !seedToRemove.lock) //if there is one and it is not locked
+    //looking for a seed that would be in the same place as pouleto
+    const seedToRemove = allSeeds.find((seed) => pouleto_top === seed.top && pouleto_left === seed.left); 
+
+    //if there is one and it is not locked, remove it
+    if (seedToRemove != undefined && !seedToRemove.lock) 
     {
         seedToRemove.lock = true;
-        const seedToRemoveIndex = allSeeds.findIndex((seed) => pouleto_top === seed.top && pouleto_left === seed.left); // find seed's index in the array
+        const seedToRemoveIndex = allSeeds.findIndex((seed) => pouleto_top === seed.top && pouleto_left === seed.left);
         seedToRemove.soundToPlay.play();
         
         score = score + seedToRemove.scoreValue;
@@ -237,7 +265,8 @@ function newWolf()
 
 function hitWolf()
 {
-    if (wolf != undefined && pouleto_top === wolf.top && pouleto_left === wolf.left) //checking if wolf is here, and if he is on pouetlo
+    //checking if wolf is here, and if he is on pouetlo
+    if (wolf != undefined && pouleto_top === wolf.top && pouleto_left === wolf.left) 
     {
         wolf.soundToPlay.play();
         
@@ -361,13 +390,13 @@ function newTractor()
     tractor = new Tractor(); 
     
     field.appendChild(tractor.htmlElement);
-    tractorMovesInterval = setInterval(moveTractor, 500);
+    tractorMovesInterval = setInterval(moveTractor, tractorSpeed);
     tractorTimeout = setTimeout(function()
     {
         field.removeChild(tractor.htmlElement);
         clearInterval(tractorMovesInterval);
         tractor = undefined;
-    }, 6500);
+    }, tractorLifetime);
 }
 
 function hitTractor()
@@ -394,7 +423,7 @@ function moveTractor()
 {
     if (tractor != undefined)
     {
-        if (tractor.movesDone < 13)
+        if (tractor.movesDone < tractorNumberMoves)
         {
             if (tractor.direction == "right")
             {

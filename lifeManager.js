@@ -1,24 +1,25 @@
 function updateLives(NumberOfLives)
 {
-
+    // making sure number of lives remains coherent
     if (NumberOfLives < 0)
-    {
-        NumberOfLives = 0;
-    }
+    {NumberOfLives = 0;}
+    if (NumberOfLives > pouletoLives)
+    {NumberOfLives = pouletoLives;}
     
-    while (pouletoLivesDisplay.firstChild) // initializing : removing all displayed lives
-    {
-        pouletoLivesDisplay.removeChild(pouletoLivesDisplay.firstChild);
-    }
+    // initializing : removing all displayed lives
+    while (pouletoLivesDisplay.firstChild) 
+    {pouletoLivesDisplay.removeChild(pouletoLivesDisplay.firstChild);}
 
-    for (let i = 0; i < NumberOfLives; i++) // displaying active lives
+    // displaying active lives
+    for (let i = 0; i < NumberOfLives; i++) 
     {
         const life = document.createElement("div");
         life.className = "life lifeok";
         pouletoLivesDisplay.appendChild(life);
     }
 
-    if (NumberOfLives < pouletoLives) // displaying lost lives if there is some
+    // displaying lost lives if there is some
+    if (NumberOfLives < pouletoLives) 
     {
         for (let j = 0; j < (pouletoLives - NumberOfLives); j++)
         {
@@ -28,11 +29,15 @@ function updateLives(NumberOfLives)
         }
     }
     
-    currentPouletoLives = NumberOfLives; // updating current number of lives gobal variable
+    // updating current number of lives gobal variable
+    currentPouletoLives = NumberOfLives; 
 }
 
 function pouletoHurt()
 {
+    let hurtGifDuration = 1300;
+
+    // if pouleto was turning right when hit
     if (pouleto.style.backgroundImage == "url(\"images/pouleto_right.png\")")
     {
         pouleto.style.backgroundImage = "url(\"images/pouleto_hurt_right.gif\")";
@@ -41,8 +46,10 @@ function pouletoHurt()
         { 
             pouleto.style.backgroundImage = "url(\"images/pouleto_right.png\")";
             document.onkeydown = movePouleto;
-        }, 1300);
+        }, hurtGifDuration);
     }
+
+    // if pouleto was turning left when hit
     else if (pouleto.style.backgroundImage == "url(\"images/pouleto_left.png\")")
     {
         pouleto.style.backgroundImage = "url(\"images/pouleto_hurt_left.gif\")";
@@ -51,6 +58,6 @@ function pouletoHurt()
         { 
             pouleto.style.backgroundImage = "url(\"images/pouleto_left.png\")";
             document.onkeydown = movePouleto;
-        }, 1300);
+        }, hurtGifDuration);
     }
 }

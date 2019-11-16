@@ -5,11 +5,13 @@ updateLives(pouletoLives); // initializing : setting pouleto lives to maximum
 function startGame()
 {
     gameStatus = "gameOn";
-    intro.style.display = "none";
 
-    pauseButton.style.display = "block";
-    pouleto.style.display = "block";
+    intro.style.display = "none"; // masking intro bloc
+    pauseButton.style.display = "block"; // showing pause button
     
+    pouleto.style.display = "block"; // showing pouleto 
+    
+    // starting items spawn
     seedInterval = setInterval(() => newSeed("normal_seed"), seedDelay);
     goldenSeedInterval = setInterval(() => newSeed("golden_seed"), goldenSeedDelay);
     wolfInterval = setInterval(newWolf, wolfDelay);
@@ -17,17 +19,16 @@ function startGame()
     lifeInterval = setInterval(newLife, lifeDelay);
 }
 
-// STOP GAME
+// FREEZE GAME
 
-function stopGame()
+function sleep(ms) 
 {
-    clearInterval(seedInterval);
-    clearInterval(goldenSeedInterval);
-    clearInterval(wolfMovesInterval);
-    clearInterval(wolfInterval);
-    clearInterval(tractorMovesInterval);
-    clearInterval(tractorInterval);
-    clearInterval(lifeInterval);
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function freezeGame()
+{
+    await sleep(2000);
 }
 
 // PAUSE GAME
@@ -36,7 +37,7 @@ function pauseGame()
 {
     if (gameStatus == "gameOn")
     {
-        stopGame();
+        freezeGame();
         gameStatus = "gameStopped";
         pauseButton.innerHTML = "Start";
         pause.style.display = "block";
@@ -50,44 +51,63 @@ function pauseGame()
     }    
 }
 
+// END GAME
+
+function endGame()
+{
+    // clearning intervals to stop new items from spawning and existing item from moving
+    clearInterval(seedInterval);
+    clearInterval(goldenSeedInterval);
+    clearInterval(wolfInterval);
+    clearInterval(wolfMovesInterval);
+    clearInterval(tractorInterval);
+    clearInterval(tractorMovesInterval);
+    clearInterval(lifeInterval);
+
+    pouleto.style.display = "none";
+    pauseButton.style.display = "none";
+    restartButton.style.display = "block";
+}
+
 // LOOSE GAME
 
 function looseGame()
 {
-    stopGame();
-    gameStatus = "gameLost";
+    endGame();
     displayScoreEndLoose.innerHTML = score;
-    pouleto.style.display = "none";
     lost.style.display = "block";
-    pauseButton.style.display = "none";
-    restartButton.style.display = "block";
 }
 
 // WIN GAME
 
 function winGame()
 {
-    stopGame();
-    gameStatus = "gameWon";
+    endGame();
     displayScoreEndWin.innerHTML = score;
-    pouleto.style.display = "none";
     won.style.display = "block";
-    pauseButton.style.display = "none";
-    restartButton.style.display = "block";
 }
 
 // RESTART GAME
 
 function restartGame()
-{
-    gameStatus = "gameOn";
+{    
+    updateLives(pouletoLives); // initializing : setting pouleto lives to maximum
     score = 0;
     lifeDelay = 10000;
-    updateLives(pouletoLives); // initializing : setting pouleto lives to maximum
+    pouleto_left = 20; 
+    pouleto_top = 20; 
+    pouleto.style.left = pouleto_left + "px";
+    pouleto.style.top = pouleto_top + "px";
     
-    //removing seeds
+    //removing all existing seeds
     allSeeds = [];
-    Array.from(document.getElementsByClassName("seed")).forEach((seed) => field.removeChild(seed));
+    Array.from(document.getElementsByClassName("seed")).forEach((seed) => 
+    {
+        seed.lock = false;
+        clearTimeout(seed.seedTimeout);
+        field.removeChild(seed);
+    }
+    );
     
     if (wolf != undefined)
     {field.removeChild(document.getElementById("wolf"));}
