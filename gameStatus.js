@@ -8,7 +8,6 @@ function startGame()
 
     intro.style.display = "none"; // masking intro bloc
     pauseButton.style.display = "block"; // showing pause button
-    
     pouleto.style.display = "block"; // showing pouleto 
     
     // starting items spawn
@@ -19,25 +18,21 @@ function startGame()
     lifeInterval = setInterval(newLife, lifeDelay);
 }
 
-// FREEZE GAME
-
-function sleep(ms) 
-{
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-async function freezeGame()
-{
-    await sleep(2000);
-}
-
 // PAUSE GAME
 
 function pauseGame()
 {
     if (gameStatus == "gameOn")
     {
-        freezeGame();
+        clearInterval(seedInterval);
+        clearInterval(goldenSeedInterval);
+        clearInterval(wolfInterval);
+        clearInterval(lifeInterval);
+        
+        clearInterval(wolfMovesInterval);
+        clearInterval(tractorInterval);
+        clearInterval(tractorMovesInterval);
+
         gameStatus = "gameStopped";
         pauseButton.innerHTML = "Start";
         pause.style.display = "block";
@@ -65,6 +60,19 @@ function endGame()
     clearInterval(lifeInterval);
 
     pouleto.style.display = "none";
+    
+    if (wolf != undefined)
+    {
+        field.removeChild(document.getElementById("wolf"));
+        clearTimeout(wolfTimeout);
+    }
+
+    if (tractor != undefined)
+    {
+        field.removeChild(document.getElementById("tractor"));
+        clearTimeout(tractorTimeout);
+    }
+
     pauseButton.style.display = "none";
     restartButton.style.display = "block";
 }

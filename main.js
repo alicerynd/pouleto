@@ -72,7 +72,7 @@ let wolfTimeout; //wolf's timout using wolfLifetime
 let tractor;
 let tractorDirection = ["left", "right"]; //possible directions of the tractor
 let tractorInterval; //tractor generator interval
-let tractorDelay = 13000; //time between 2 tractors
+let tractorDelay = 11000; //time between 2 tractors
 let tractorMovesInterval; //tractor movement generator interval
 let tractorNumberMoves = 13; //setting number of moves tractor has to make to cross field
 let tractorSpeed = 500; //setting time tractor needs for one move
@@ -184,13 +184,14 @@ function hitSeed()
     if (seedToRemove != undefined && !seedToRemove.lock) 
     {
         seedToRemove.lock = true;
+        
+        clearTimeout(seedToRemove.seedTimeout);
         const seedToRemoveIndex = allSeeds.findIndex((seed) => pouleto_top === seed.top && pouleto_left === seed.left);
         seedToRemove.soundToPlay.play();
         
         score = score + seedToRemove.scoreValue;
         displayScore.innerHTML = score;
 
-        clearTimeout(seedToRemove.seedTimeout);
         field.removeChild(seedToRemove.htmlElement);
         allSeeds.splice(seedToRemoveIndex, 1);
 
@@ -369,12 +370,12 @@ class Tractor
         if (this.direction == "right")
         {
             this.left = -80;
-            this.htmlElement.style.left = (this.left - 20) + "px";
+            this.htmlElement.style.left = (this.left - 50) + "px";
         }
         else if (this.direction == "left")
         {
             this.left = 1120;
-            this.htmlElement.style.left = (this.left + 20) + "px";
+            this.htmlElement.style.left = (this.left + 50) + "px";
         }
         
         this.top = Ycoordinates[Math.floor(Math.random() * Ycoordinates.length)];
