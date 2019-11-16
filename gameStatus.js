@@ -11,8 +11,10 @@ function startGame()
     pouleto.style.display = "block"; // showing pouleto 
     
     // starting items spawn
-    seedInterval = setInterval(() => newSeed("normal_seed"), seedDelay);
-    goldenSeedInterval = setInterval(() => newSeed("golden_seed"), goldenSeedDelay);
+    normalSeedInterval = setInterval(() => newSeed("normalSeed"), normalSeedDelay);
+    goldenSeedInterval = setInterval(() => newSeed("goldenSeed"), goldenSeedDelay);
+    superSeedInterval = setInterval(() => newSeed("superSeed"), superSeedDelay);
+    
     wolfInterval = setInterval(newWolf, wolfDelay);
     tractorInterval = setInterval(newTractor, tractorDelay);
     lifeInterval = setInterval(newLife, lifeDelay);
@@ -24,8 +26,10 @@ function pauseGame()
 {
     if (gameStatus == "gameOn")
     {
-        clearInterval(seedInterval);
+        clearInterval(normalSeedInterval);
         clearInterval(goldenSeedInterval);
+        clearInterval(superSeedInterval);
+
         clearInterval(wolfInterval);
         clearInterval(lifeInterval);
         
@@ -51,10 +55,13 @@ function pauseGame()
 function endGame()
 {
     // clearning intervals to stop new items from spawning and existing item from moving
-    clearInterval(seedInterval);
+    clearInterval(normalSeedInterval);
     clearInterval(goldenSeedInterval);
+    clearInterval(superSeedInterval);
+
     clearInterval(wolfInterval);
     clearInterval(wolfMovesInterval);
+    
     clearInterval(tractorInterval);
     clearInterval(tractorMovesInterval);
     clearInterval(lifeInterval);

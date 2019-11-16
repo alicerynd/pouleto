@@ -226,11 +226,12 @@ header p
     position: absolute;
 }
 
-.normal_seed
-{background-image: url("images/seed.png");}
-
-.golden_seed
-{background-image: url("images/golden_seed.png");}
+.normalSeed
+{background-image: url("images/seeds/normalSeed.png");}
+.goldenSeed
+{background-image: url("images/seeds/goldenSeed.png");}
+.superSeed
+{background-image: url("images/seeds/superSeed.png");}
 
 .plusFive
 {
@@ -248,6 +249,17 @@ header p
     width: 100px;
     height: 100px;
     background-image: url("images/minusFive.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    z-index: 10;
+}
+
+.plusTen
+{
+    width: 100px;
+    height: 100px;
+    background-image: url("images/plusTen.png");
     background-repeat: no-repeat;
     background-size: cover;
     position: absolute;

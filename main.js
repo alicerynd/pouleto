@@ -48,13 +48,22 @@ let gameStatus = "gameOn"; //set initial Game Status
 // SEEDS
 
 let seedId = 1; //setting first seed id
-let seedInterval; //seed generator interval
-let goldenSeedInterval; //golden seed generator interval
-let seedDelay = 1000; //time before new normal seed appears
-let goldenSeedDelay = 6200; //time before new normal golden seed appears
 let seedLifetime; //time before any seed disappears
+
+const seedTypes = ["normal", "golden", "super"]
+
+let normalSeedInterval; //seed generator interval
+let normalSeedDelay = 1000; //time before new normal seed appears
 let normalSeedLifetime = 4000; //time before normal seed disappears 
-let goldenSeedLifetime = 2000; //time before golden seed disappears 
+
+let goldenSeedInterval; 
+let goldenSeedDelay = 6200; 
+let goldenSeedLifetime = 2100;
+
+let superSeedInterval; 
+let superSeedDelay = 20000; 
+let superSeedLifetime = 1200;
+
 let allSeeds = []; //array which contains all the seeds on the field
 
 // WOLF
@@ -105,18 +114,29 @@ class Seed
         
         this.lock = false;
      
-        if (seedType == "normal_seed")
+        if (seedType == "normalSeed")
         {
             this.scoreValue = 1;
-            this.soundToPlay = new Audio('sounds/crunch.mp3');
+            this.soundToPlay = new Audio('sounds/normalSeedSound.mp3');
         }
-        else if (seedType == "golden_seed") 
+        else if (seedType == "goldenSeed") 
         {
             this.scoreValue = 5;
-            this.soundToPlay = new Audio('sounds/golden_seed.mp3');
+            this.soundToPlay = new Audio('sounds/goldenSeedSound.mp3');
             
             this.afterElement = document.createElement("div");
             this.afterElement.className = "plusFive";
+            this.afterElement.timeout = 1200;
+            this.afterElement.style.left = this.left + "px";
+            this.afterElement.style.top = this.top + "px";
+        }
+        else if (seedType == "superSeed") 
+        {
+            this.scoreValue = 10;
+            this.soundToPlay = new Audio('sounds/goldenSeedSound.mp3');
+            
+            this.afterElement = document.createElement("div");
+            this.afterElement.className = "plusTen";
             this.afterElement.timeout = 1200;
             this.afterElement.style.left = this.left + "px";
             this.afterElement.style.top = this.top + "px";
@@ -153,10 +173,10 @@ function newSeed(seedType)
     field.appendChild(newSeed.htmlElement);
     allSeeds.push(newSeed);
 
-    if (seedType == "normal_seed")
+    if (seedType == "normalSeed")
     {seedLifetime = normalSeedLifetime;}
 
-    if (seedType == "golden_seed")
+    if (seedType == "goldenSeed")
     {seedLifetime = goldenSeedLifetime;}
 
     newSeed.seedTimeout = setTimeout(function()
@@ -195,7 +215,7 @@ function hitSeed()
         field.removeChild(seedToRemove.htmlElement);
         allSeeds.splice(seedToRemoveIndex, 1);
 
-        if (seedToRemove.htmlElement.className == "seed golden_seed")
+        if (seedToRemove.afterElement != undefined)
         {
             field.appendChild(seedToRemove.afterElement);
             setTimeout(function()
@@ -367,6 +387,9 @@ class Tractor
         this.htmlElement.id = "tractor";
         this.htmlElement.innerHTML = '<img style="width: 150px;" src="images/tractor_'+this.direction+'.gif" />';
         
+        this.soundToPlay1 = new Audio('sounds/chickenscream.mp3'); 
+        this.soundToPlay2 = new Audio('sounds/chickenscream.mp3'); 
+
         if (this.direction == "right")
         {
             this.left = -80;
@@ -381,8 +404,12 @@ class Tractor
         this.top = Ycoordinates[Math.floor(Math.random() * Ycoordinates.length)];
         this.htmlElement.style.top = this.top + "px";
         this.movesDone = 0;
-        this.damage = 3;
-        this.soundToPlay = new Audio('sounds/chickenscream.mp3'); 
+        this.damage = 1;
+        this.scoreValue = 5;
+
+        this.afterElement = document.createElement("div");
+        this.afterElement.className = "minusFive";
+        this.afterElement.timeout = 1200;        
     }
 }
 
@@ -406,6 +433,8 @@ function newTractor()
         }
     }
     
+    //tractor.soundToPlay1.play();
+
     field.appendChild(tractor.htmlElement);
     tractorMovesInterval = setInterval(moveTractor, tractorSpeed);
     tractorTimeout = setTimeout(function()
@@ -420,14 +449,26 @@ function hitTractor()
 {
     if (tractor != undefined && pouleto_top === tractor.top && pouleto_left === tractor.left) //checking if tractor is here, and if he is on pouetlo
     {
-        tractor.soundToPlay.play();
-        
+        tractor.soundToPlay2.play();
+
+        score = score - tractor.scoreValue;
+        displayScore.innerHTML = score;
+
+        pouletoHurt();
         updateLives(currentPouletoLives - tractor.damage)
         
         clearTimeout(tractorTimeout);
         clearInterval(tractorMovesInterval);
         field.removeChild(tractor.htmlElement);
-        tractor = undefined;
+
+        tractor.afterElement.style.left = tractor.left + "px";
+        tractor.afterElement.style.top = tractor.top + "px";
+        field.appendChild(tractor.afterElement);
+        setTimeout(function()
+        { 
+            field.removeChild(tractor.afterElement);
+            tractor = undefined;
+        }, tractor.afterElement.timeout);
 
         if (currentPouletoLives <= 0)
         {
