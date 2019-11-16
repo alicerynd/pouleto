@@ -60,19 +60,6 @@ function endGame()
     clearInterval(lifeInterval);
 
     pouleto.style.display = "none";
-    
-    if (wolf != undefined)
-    {
-        field.removeChild(document.getElementById("wolf"));
-        clearTimeout(wolfTimeout);
-    }
-
-    if (tractor != undefined)
-    {
-        field.removeChild(document.getElementById("tractor"));
-        clearTimeout(tractorTimeout);
-    }
-
     pauseButton.style.display = "none";
     restartButton.style.display = "block";
 }
@@ -108,20 +95,32 @@ function restartGame()
     pouleto.style.top = pouleto_top + "px";
     
     //removing all existing seeds
-    allSeeds = [];
+    
     Array.from(document.getElementsByClassName("seed")).forEach((seed) => 
     {
-        seed.lock = false;
-        clearTimeout(seed.seedTimeout);
         field.removeChild(seed);
     }
     );
     
+    allSeeds.forEach((seed) =>
+    {
+        seed.lock = false;
+        clearTimeout(seed.seedTimeout);
+    }
+    );
+    allSeeds = [];
+
     if (wolf != undefined)
-    {field.removeChild(document.getElementById("wolf"));}
+    {
+        field.removeChild(document.getElementById("wolf"));
+        clearTimeout(wolfTimeout);
+    }
 
     if (tractor != undefined)
-    {field.removeChild(document.getElementById("tractor"));}
+    {
+        field.removeChild(document.getElementById("tractor"));
+        clearTimeout(tractorTimeout);
+    }
 
     displayScore.innerHTML = score;
     restartButton.style.display = "none";

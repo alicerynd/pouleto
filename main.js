@@ -388,7 +388,23 @@ class Tractor
 
 function newTractor()
 {
-    tractor = new Tractor(); 
+    tractor = new Tractor();
+    let tryTractor = false;
+
+    while (!tryTractor) //checking if wolf appeared on pouleto
+    {
+        if ((pouleto_left == 20 || pouleto_left == 1020) && pouleto_top === tractor.top)
+        {
+            console.log("Tractor spawned on pouleto")
+            tryTractor = false;
+            tractor = undefined;
+            tractor = new Tractor();
+        }
+        else
+        {
+            tryTractor = true;
+        }
+    }
     
     field.appendChild(tractor.htmlElement);
     tractorMovesInterval = setInterval(moveTractor, tractorSpeed);
@@ -398,7 +414,7 @@ function newTractor()
         clearInterval(tractorMovesInterval);
         tractor = undefined;
     }, tractorLifetime);
-}
+}   
 
 function hitTractor()
 {
