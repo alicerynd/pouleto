@@ -72,7 +72,7 @@ let wolfTimeout; //wolf's timout using wolfLifetime
 let tractor;
 let tractorDirection = ["left", "right"]; //possible directions of the tractor
 let tractorInterval; //tractor generator interval
-let tractorDelay = 20000; //time between 2 tractors
+let tractorDelay = 13000; //time between 2 tractors
 let tractorMovesInterval; //tractor movement generator interval
 let tractorNumberMoves = 13; //setting number of moves tractor has to make to cross field
 let tractorSpeed = 500; //setting time tractor needs for one move
