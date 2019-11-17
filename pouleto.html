@@ -27,14 +27,15 @@
             <div>
                 <h1 class="main_title">POULETO</h1>
             </div>
-            <button id="pauseButton" value="gameOn" style="display: none;" onclick="pauseGame()">Pause</button>
+            <!-- <button id="pauseButton" value="gameOn" style="display: none;" onclick="pauseGame()">Pause</button> -->
             <button id="restartButton" onclick="restartGame()" style="display: none;">Restart game</button>
         </header>
 
         <div id="navbar">
-            <p><b>Score :</b> <span id="score">0</span></p>
+            <p><b>Score:</b> <span id="score">0</span></p>
+            <p style="width: 200px;"><b>Time:</b> <span id="timer"></span></p>
             <div id="pouletoLivesDiv">
-                <p><b>Lives :</b></p>
+                <p><b>Lives:</b></p>
                 <span id="pouletoLivesDisplay"></span>
             </div>
         </div>
@@ -42,6 +43,7 @@
         <div id="field">
             
             <!-- Intro bloc and start name button -->
+
             <div id="intro">
                 <div style="display: flex; justify-content: center; align-items: center;">
                     <img src="images/wolf_run.gif" style="width: 200px; margin-right: 100px;" />
@@ -52,7 +54,7 @@
                     <div style="padding-right: 40px; text-align: left">
                         <h2 class="main_title" style="font-size: 45px">POULETO</h2>
                         <p style="font-size: 20px;">Help Pouleto eating the seeds<br />until you reach <span id="scoreWon"></span> points!<br />Beware the wolf...</p>
-                        <button id="pauseButton" onclick="startGame()">Start !</button>
+                        <button onclick="startGame()">Start !</button>
                     </div>
                     <div style="border-left: 1px solid #7B7D84; padding-left: 40px;">
                         <img src="images/keys.png" style="width: 400px;" />
@@ -60,14 +62,14 @@
                 </div>
             </div>
             
-            <!-- Pause bloc -->
+            <!-- Pause bloc 
 
             <div id="pause">
                 <div style="text-align: center;">
                     <img style="width: 150px;" src="images/pouleto_sleep.png" />
                     <p style="font-size: 120px;">PAUSE</p>
                 </div>
-            </div>
+            </div> -->
            
             <!-- Game lost bloc -->
             
@@ -76,7 +78,7 @@
                     <img style="width: 150px; margin-right: 40px" src="images/pouleto_sad.png" />
                     <p>
                         <span style="font-size: 120px;">GAME OVER</span><br />
-                        <span style="font-size: 45px">YOUR SCORE IS <span id="displayScoreEndLoose"></span></span>
+                        <span style="font-size: 45px">POULETO DIED :'(</span>
                     </p>
                 </div>
             </div>
@@ -88,13 +90,15 @@
                     <img style="width: 150px; margin-right: 40px" src="images/pouleto_happy.png" />
                     <p>
                         <span style="font-size: 120px;">YOU WON!</span><br />
-                        <span style="font-size: 45px">YOUR SCORE IS <span id="displayScoreEndWin"></span></span>
+                        <span style="font-size: 45px">YOUR SCORE IS <span id="displayScoreEndWin"></span> IN <span id="displayFinalTime"></span></span>
                     </p>
                 </div>
             </div>
            
             <!-- Initializing Pouleto -->
+
             <div id="pouleto" style="display: none;"></div>
+
         </div>
 
     </div>
@@ -104,6 +108,7 @@
 </html>
 
 <script src="loader.js"></script>
+<script src="timer.js"></script>
 <script src="main.js"></script>
 <script src="lifeManager.js"></script>
 <script src="movePouleto.js"></script>

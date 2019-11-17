@@ -9,11 +9,12 @@ const field = document.getElementById("field");
 
 const loading = document.getElementById("loading");
 const intro = document.getElementById("intro"); 
-const pause = document.getElementById("pause");
 const lost = document.getElementById("lost");
 const won = document.getElementById("won");
-const pauseButton = document.getElementById("pauseButton");
 const restartButton = document.getElementById("restartButton");
+
+// const pause = document.getElementById("pause");
+// const pauseButton = document.getElementById("pauseButton");
 
 // POULETO
 
@@ -28,10 +29,15 @@ let pouleto_top = 20;
 let score = 0; //set initial score
 const scoreWon = 50; //set score you need to win a game
 const displayScore = document.getElementById("score"); //displays score during the game
-const displayScoreEndLoose = document.getElementById("displayScoreEndLoose"); //displays score when you loose
 const displayScoreEndWin = document.getElementById("displayScoreEndWin"); //displays score when you win
+const displayFinalTime = document.getElementById("displayFinalTime");
 const scoreWonIntro = document.getElementById("scoreWon"); 
     scoreWonIntro.innerHTML = scoreWon; //displays score to reach in the intro bloc
+
+// TIMER
+
+let gameTimer = new Timer();
+document.getElementById("timer").innerHTML = "00:00:00";
 
 // LIVES
 

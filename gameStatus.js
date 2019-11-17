@@ -5,9 +5,11 @@ updateLives(pouletoLives); // initializing : setting pouleto lives to maximum
 function startGame()
 {
     gameStatus = "gameOn";
+    
+    gameTimer.start();
 
     intro.style.display = "none"; // masking intro bloc
-    pauseButton.style.display = "block"; // showing pause button
+    //pauseButton.style.display = "block"; // showing pause button
     pouleto.style.display = "block"; // showing pouleto 
     
     // starting items spawn
@@ -18,36 +20,6 @@ function startGame()
     wolfInterval = setInterval(newWolf, wolfDelay);
     tractorInterval = setInterval(newTractor, tractorDelay);
     lifeInterval = setInterval(newLife, lifeDelay);
-}
-
-// PAUSE GAME
-
-function pauseGame()
-{
-    if (gameStatus == "gameOn")
-    {
-        clearInterval(normalSeedInterval);
-        clearInterval(goldenSeedInterval);
-        clearInterval(superSeedInterval);
-
-        clearInterval(wolfInterval);
-        clearInterval(lifeInterval);
-        
-        clearInterval(wolfMovesInterval);
-        clearInterval(tractorInterval);
-        clearInterval(tractorMovesInterval);
-
-        gameStatus = "gameStopped";
-        pauseButton.innerHTML = "Start";
-        pause.style.display = "block";
-    }
-    else if (gameStatus == "gameStopped")
-    {
-        startGame();
-        pauseButton.innerHTML = "Pause";
-        gameStatus = "gameOn";
-        pause.style.display = "none";
-    }    
 }
 
 // END GAME
@@ -66,8 +38,10 @@ function endGame()
     clearInterval(tractorMovesInterval);
     clearInterval(lifeInterval);
 
+    gameTimer.stop();
+
     pouleto.style.display = "none";
-    pauseButton.style.display = "none";
+    //pauseButton.style.display = "none";
     restartButton.style.display = "block";
 }
 
@@ -76,7 +50,6 @@ function endGame()
 function looseGame()
 {
     endGame();
-    displayScoreEndLoose.innerHTML = score;
     lost.style.display = "block";
 }
 
@@ -86,6 +59,7 @@ function winGame()
 {
     endGame();
     displayScoreEndWin.innerHTML = score;
+    displayFinalTime.innerHTML = gameTimer.finalTime;
     won.style.display = "block";
 }
 
@@ -95,6 +69,9 @@ function restartGame()
 {    
     updateLives(pouletoLives); // initializing : setting pouleto lives to maximum
     score = 0;
+
+    gameTimer.reinitialize();
+
     lifeDelay = 10000;
     pouleto_left = 20; 
     pouleto_top = 20; 
@@ -131,7 +108,7 @@ function restartGame()
 
     displayScore.innerHTML = score;
     restartButton.style.display = "none";
-    pauseButton.style.display = "block";
+    //pauseButton.style.display = "block";
     lost.style.display = "none";
     won.style.display = "none";
     
