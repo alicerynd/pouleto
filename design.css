@@ -14,15 +14,16 @@ button
     color: white;
     font-weight: bold;
     font-size: 14px;
-    padding: 12px 45px;
+    padding: 12px 30px;
     border-radius: 2px;
     border: none;
     cursor: pointer;
+    transition: all .2s ease-in-out;
 }
 
 button:hover
 {
-    background-color: rgb(198, 135, 40);
+    transform: scale(1.1);
 }
 
 /* Index */
@@ -45,11 +46,13 @@ button:hover
     flex-direction: column; 
     align-items: center; 
     justify-content : center;
+    transition: all .2s ease-in-out;
 }
 
 .index_card:hover
 {
-    background-color: #30354b; 
+    background-color: #30354b;
+    transform: scale(1.05);
 }
 
 /* Loading */
