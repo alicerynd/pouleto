@@ -49,7 +49,6 @@ const pouletoLivesDisplay = document.getElementById("pouletoLivesDisplay"); //Sc
 
 const Xcoordinates = [20, 120, 220, 320, 420, 520, 620, 720, 820, 920, 1020]; //possible horizontal positions
 const Ycoordinates = [20, 120, 220, 320, 420]; //possible vertical positions
-let gameStatus = "gameOn"; //set initial Game Status
 
 // SEEDS
 
@@ -224,7 +223,7 @@ function hitSeed()
         if (seedToRemove.afterElement != undefined)
         {
             field.appendChild(seedToRemove.afterElement);
-            setTimeout(function()
+            seedToRemove.AfterElementTimeout = setTimeout(function()
             { 
                 field.removeChild(seedToRemove.afterElement);
             }, seedToRemove.afterElement.timeout);
@@ -310,7 +309,7 @@ function hitWolf()
         wolf.afterElement.style.left = wolf.left + "px";
         wolf.afterElement.style.top = wolf.top + "px";
         field.appendChild(wolf.afterElement);
-        setTimeout(function()
+        wolfAfterElementTimeout = setTimeout(function()
         { 
             field.removeChild(wolf.afterElement);
             wolf = undefined;
@@ -470,7 +469,7 @@ function hitTractor()
         tractor.afterElement.style.left = tractor.left + "px";
         tractor.afterElement.style.top = tractor.top + "px";
         field.appendChild(tractor.afterElement);
-        setTimeout(function()
+        tractorAfterElementTimeout = setTimeout(function()
         { 
             field.removeChild(tractor.afterElement);
             tractor = undefined;

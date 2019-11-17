@@ -4,19 +4,14 @@ updateLives(pouletoLives); // initializing : setting pouleto lives to maximum
 
 function startGame()
 {
-    gameStatus = "gameOn";
-    
-    gameTimer.start();
-
     intro.style.display = "none"; // masking intro bloc
-    //pauseButton.style.display = "block"; // showing pause button
+    gameTimer.start();
     pouleto.style.display = "block"; // showing pouleto 
     
     // starting items spawn
     normalSeedInterval = setInterval(() => newSeed("normalSeed"), normalSeedDelay);
     goldenSeedInterval = setInterval(() => newSeed("goldenSeed"), goldenSeedDelay);
     superSeedInterval = setInterval(() => newSeed("superSeed"), superSeedDelay);
-    
     wolfInterval = setInterval(newWolf, wolfDelay);
     tractorInterval = setInterval(newTractor, tractorDelay);
     lifeInterval = setInterval(newLife, lifeDelay);
@@ -36,13 +31,12 @@ function endGame()
     
     clearInterval(tractorInterval);
     clearInterval(tractorMovesInterval);
+
     clearInterval(lifeInterval);
 
     gameTimer.stop();
 
     pouleto.style.display = "none";
-    //pauseButton.style.display = "none";
-    restartButton.style.display = "block";
 }
 
 // LOOSE GAME
@@ -66,51 +60,49 @@ function winGame()
 // RESTART GAME
 
 function restartGame()
-{    
-    updateLives(pouletoLives); // initializing : setting pouleto lives to maximum
-    score = 0;
-
+{   
+    endGame();
     gameTimer.reinitialize();
-
+    score = 0;
+    updateLives(pouletoLives); // initializing : setting pouleto lives to maximum
+    
     lifeDelay = 10000;
     pouleto_left = 20; 
     pouleto_top = 20; 
     pouleto.style.left = pouleto_left + "px";
     pouleto.style.top = pouleto_top + "px";
+
+    displayScore.innerHTML = score;
+    lost.style.display = "none";
+    won.style.display = "none";
     
     //removing all existing seeds
-    
-    Array.from(document.getElementsByClassName("seed")).forEach((seed) => 
-    {
-        field.removeChild(seed);
-    }
-    );
+    Array.from(document.getElementsByClassName("seed")).forEach((seed) => field.removeChild(seed));
     
     allSeeds.forEach((seed) =>
     {
         seed.lock = false;
         clearTimeout(seed.seedTimeout);
+        clearTimeout(seed.AfterElementTimeout);
     }
     );
     allSeeds = [];
 
+    // removing Wolf if exists
     if (wolf != undefined)
     {
         field.removeChild(document.getElementById("wolf"));
         clearTimeout(wolfTimeout);
+        wolf = undefined;
     }
 
+    // removing Tractor if exists
     if (tractor != undefined)
     {
         field.removeChild(document.getElementById("tractor"));
         clearTimeout(tractorTimeout);
+        tractor = undefined;
     }
 
-    displayScore.innerHTML = score;
-    restartButton.style.display = "none";
-    //pauseButton.style.display = "block";
-    lost.style.display = "none";
-    won.style.display = "none";
-    
     startGame();
 }
