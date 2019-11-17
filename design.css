@@ -10,7 +10,7 @@ body
 
 button
 {
-    background-color: rgb(255, 154, 0);
+    background-color: #ff9b01;
     color: white;
     font-weight: bold;
     font-size: 14px;
@@ -60,7 +60,7 @@ button:hover
     margin-left: auto;
     margin-top: 150px;
     text-align: center;
-    color: rgb(255, 154, 0);
+    color: #ff9b01;
     font-weight: 900;
     width: 500px;
     opacity: 1;
@@ -88,7 +88,7 @@ button:hover
 .loader 
 {
     border: 16px solid #f3f3f3; /* Light grey */
-    border-top: 16px solid rgb(255, 154, 0); /* Blue */
+    border-top: 16px solid #ff9b01; /* Blue */
     border-radius: 50%;
     width: 120px;
     height: 120px;
@@ -119,7 +119,7 @@ button:hover
 
 .main_title
 {
-    color: rgb(255, 154, 0);
+    color: #ff9b01;
     font-weight: 900;
     margin: 0;
 }
@@ -355,7 +355,7 @@ header p
 {
     display: none;
     padding-top: 50px;
-    color: rgb(255, 154, 0);
+    color: #ff9b01;
     font-weight: 900;
 }
 
