@@ -12,7 +12,7 @@ function movePouleto(e)
 {
     e = e || window.event;
 
-    if (e.keyCode == '38') // up arrow
+    if (e.keyCode == '38' || e.keyCode == '90') // up arrow
     {
         if (pouleto_top >= 120)
         {
@@ -21,7 +21,7 @@ function movePouleto(e)
             detectCollision();
         } 
     }
-    else if (e.keyCode == '40') // down arrow
+    else if (e.keyCode == '40' || e.keyCode == '83') // down arrow
     {
         if (pouleto_top <= 320)
         {
@@ -30,7 +30,7 @@ function movePouleto(e)
             detectCollision();
         }
     }
-    else if (e.keyCode == '37') // left arrow
+    else if (e.keyCode == '37' || e.keyCode == '81') // left arrow
     {
         if (pouleto_left >= 120)
         {
@@ -40,7 +40,7 @@ function movePouleto(e)
             detectCollision();
         }
     }
-    else if (e.keyCode == '39') // right arrow
+    else if (e.keyCode == '39' || e.keyCode == '68') // right arrow
     {
         if (pouleto_left <= 920)
         {

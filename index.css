@@ -1,0 +1,54 @@
+/* Index */
+
+header
+{
+    text-align: center;
+}
+
+header img
+{
+    width: 500px;
+    margin-bottom: 50px;
+}
+
+.index_content a
+{
+    color: white;
+    text-decoration: none;
+}
+
+.index_content 
+{
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    justify-content: space-around;
+}
+
+.index_card
+{
+    padding: 20px; 
+    width: 250px; 
+    height: 250px; 
+    border-radius: 10px; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content : center;
+    transition: all .2s ease-in-out;
+}
+
+.index_card_disabled
+{
+    background-color: #e2e2e2; 
+    color: rgb(179, 179, 179);
+}
+.index_card_enabled
+{
+    background-color: #242733; 
+}
+.index_card_enabled:hover
+{
+    background-color: #30354b;
+    transform: scale(1.05);
+}

@@ -1,0 +1,27 @@
+/* HTML Elements */
+
+html, body {margin: 0; height: 100%; overflow: hidden}
+
+body
+{
+    padding: 30px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+button
+{
+    background-color: #ff9b01;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 12px 30px;
+    border-radius: 2px;
+    border: none;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+}
+
+button:hover
+{
+    transform: scale(1.1);
+}
