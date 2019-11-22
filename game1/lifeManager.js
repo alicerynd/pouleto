@@ -38,25 +38,25 @@ function pouletoHurt()
     let hurtGifDuration = 1300;
 
     // if pouleto was turning right when hit
-    if (pouleto.style.backgroundImage == "url(\"images/pouleto_right.png\")")
+    if (pouleto.style.backgroundImage == "url(\"../images/pouleto_right.png\")")
     {
-        pouleto.style.backgroundImage = "url(\"images/pouleto_hurt_right.gif\")";
+        pouleto.style.backgroundImage = "url(\"../images/pouleto_hurt_right.gif\")";
         document.onkeydown = undefined;
         setTimeout(() =>
         { 
-            pouleto.style.backgroundImage = "url(\"images/pouleto_right.png\")";
+            pouleto.style.backgroundImage = "url(\"../images/pouleto_right.png\")";
             document.onkeydown = movePouleto;
         }, hurtGifDuration);
     }
 
     // if pouleto was turning left when hit
-    else if (pouleto.style.backgroundImage == "url(\"images/pouleto_left.png\")")
+    else if (pouleto.style.backgroundImage == "url(\"../images/pouleto_left.png\")")
     {
-        pouleto.style.backgroundImage = "url(\"images/pouleto_hurt_left.gif\")";
+        pouleto.style.backgroundImage = "url(\"../images/pouleto_hurt_left.gif\")";
         document.onkeydown = undefined;
         setTimeout(() =>
         { 
-            pouleto.style.backgroundImage = "url(\"images/pouleto_left.png\")";
+            pouleto.style.backgroundImage = "url(\"../images/pouleto_left.png\")";
             document.onkeydown = movePouleto;
         }, hurtGifDuration);
     }

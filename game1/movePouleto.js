@@ -34,7 +34,7 @@ function movePouleto(e)
     {
         if (pouleto_left >= 120)
         {
-            pouleto.style.backgroundImage = "url(\"images/pouleto_left.png\")";
+            pouleto.style.backgroundImage = "url(\"../images/pouleto_left.png\")";
             pouleto_left = pouleto_left - 100;
             pouleto.style.left = pouleto_left + "px";
             detectCollision();
@@ -44,7 +44,7 @@ function movePouleto(e)
     {
         if (pouleto_left <= 920)
         {
-            pouleto.style.backgroundImage = "url(\"images/pouleto_right.png\")";
+            pouleto.style.backgroundImage = "url(\"../images/pouleto_right.png\")";
             pouleto_left = pouleto_left + 100;
             pouleto.style.left = pouleto_left + "px";
             detectCollision();

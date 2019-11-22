@@ -122,12 +122,12 @@ class Seed
         if (seedType == "normalSeed")
         {
             this.scoreValue = 1;
-            this.soundToPlay = new Audio('sounds/normalSeedSound.mp3');
+            this.soundToPlay = new Audio('../sounds/normalSeedSound.mp3');
         }
         else if (seedType == "goldenSeed") 
         {
             this.scoreValue = 5;
-            this.soundToPlay = new Audio('sounds/goldenSeedSound.mp3');
+            this.soundToPlay = new Audio('../sounds/goldenSeedSound.mp3');
             
             this.afterElement = document.createElement("div");
             this.afterElement.className = "plusFive";
@@ -138,7 +138,7 @@ class Seed
         else if (seedType == "superSeed") 
         {
             this.scoreValue = 10;
-            this.soundToPlay = new Audio('sounds/goldenSeedSound.mp3');
+            this.soundToPlay = new Audio('../sounds/goldenSeedSound.mp3');
             
             this.afterElement = document.createElement("div");
             this.afterElement.className = "plusTen";
@@ -251,7 +251,7 @@ class Wolf
         this.movesDone = 0;
         this.damage = 1;
         this.scoreValue = 5;
-        this.soundToPlay = new Audio('sounds/wolf.mp3'); 
+        this.soundToPlay = new Audio('../sounds/wolf.mp3'); 
 
         this.afterElement = document.createElement("div");
         this.afterElement.className = "minusFive";
@@ -390,10 +390,10 @@ class Tractor
         this.direction = tractorDirection[Math.floor(Math.random() * tractorDirection.length)];
         this.htmlElement = document.createElement("div");
         this.htmlElement.id = "tractor";
-        this.htmlElement.innerHTML = '<img style="width: 150px;" src="images/tractor_'+this.direction+'.gif" />';
+        this.htmlElement.innerHTML = '<img style="width: 150px;" src="../images/tractor_'+this.direction+'.gif" />';
         
-        this.soundToPlay1 = new Audio('sounds/chickenscream.mp3'); 
-        this.soundToPlay2 = new Audio('sounds/chickenscream.mp3'); 
+        this.soundToPlay1 = new Audio('../sounds/chickenscream.mp3'); 
+        this.soundToPlay2 = new Audio('../sounds/chickenscream.mp3'); 
 
         if (this.direction == "right")
         {
@@ -522,7 +522,7 @@ class Life
         this.htmlElement.style.left = this.left + "px";
         this.htmlElement.style.top = this.top + "px";
         this.value = 1;
-        this.soundToPlay = new Audio('sounds/newLife.mp3'); 
+        this.soundToPlay = new Audio('../sounds/newLife.mp3'); 
     }
 }
 

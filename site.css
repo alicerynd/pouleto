@@ -25,3 +25,48 @@ button:hover
 {
     transform: scale(1.1);
 }
+
+/* Loading */
+
+#loading
+{
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 150px;
+    text-align: center;
+    color: #ff9b01;
+    font-weight: 900;
+    width: 500px;
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+
+#loading.fade
+{
+    opacity: 0;
+}
+
+#loading h3
+{
+    margin: 0;
+    font-size: 25px;
+}
+
+.loader 
+{
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #ff9b01; 
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+}
+  
+@keyframes spin
+{
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
