@@ -19,7 +19,7 @@
     margin: 0;
 }
 
-header, #navbar, #field
+header, #mynavbar, #field
 {
     width: 1140px;
 }
@@ -45,7 +45,7 @@ header p
     top: 20px;
 }
 
-#navbar
+#mynavbar
 {
     height: 50px;
     display: flex;

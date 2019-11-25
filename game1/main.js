@@ -43,7 +43,7 @@ document.getElementById("timer").innerHTML = "00:00:00";
 
 const pouletoLives = 3; //set initial number of lives
 let currentPouletoLives; //contains current number of lives
-const pouletoLivesDisplay = document.getElementById("pouletoLivesDisplay"); //Score navbar display
+const pouletoLivesDisplay = document.getElementById("pouletoLivesDisplay"); //Score mynavbar display
 
 // MISC
 
